@@ -1,6 +1,5 @@
 package team.items;
 
-public class Note
-{
+public class Note {
 
 }
