@@ -1,16 +1,24 @@
-package team.frontend;
+package team.frontend.components;
 
 import javax.swing.*;
+
+import team.frontend.MenuBar;
+
 import java.awt.*;
 
 public class EntranceFrame extends JFrame {
 
   static MenuBar tb = new MenuBar();
+  static Header header = new Header();
+  static CalendarGrid cg = new CalendarGrid();
 
   public EntranceFrame(String title) {
     super(title);
     setSize(800, 500);
     this.setJMenuBar(tb);
+    this.add("North", header);
+    this.add("Center", cg);
+    this.setLayout(new BorderLayout());
     centerWindow();
   }
 
