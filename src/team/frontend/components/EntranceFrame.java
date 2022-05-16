@@ -16,9 +16,9 @@ public class EntranceFrame extends JFrame {
     super(title);
     setSize(800, 500);
     this.setJMenuBar(tb);
+    this.setLayout(new BorderLayout());
     this.add("North", header);
     this.add("Center", cg);
-    this.setLayout(new BorderLayout());
     centerWindow();
   }
 
