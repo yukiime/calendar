@@ -1,6 +1,5 @@
 package team.ItemSchedule;
 
-public class Festival
-{
-    final int repeatCode = 1;
+public class Festival {
+  final int repeatCode = 1;
 }
