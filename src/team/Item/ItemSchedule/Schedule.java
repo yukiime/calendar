@@ -1,4 +1,4 @@
-package team.ItemSchedule;
+package team.Item.ItemSchedule;
 /**
  * 用途:
  * 用于日程

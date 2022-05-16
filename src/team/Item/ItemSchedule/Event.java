@@ -1,4 +1,4 @@
-package team.ItemSchedule;
+package team.Item.ItemSchedule;
 
 import java.util.Calendar;
 
