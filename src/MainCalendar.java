@@ -1,4 +1,4 @@
-import team.frontend.components.EntranceFrame;
+import team.frontend.EntranceFrame;
 
 public class MainCalendar {
 

@@ -1,8 +1,10 @@
-package team.frontend.components;
+package team.frontend;
 
 import javax.swing.*;
 
-import team.frontend.MenuBar;
+import team.frontend.components.CalendarGrid;
+import team.frontend.components.Header;
+import team.frontend.components.TopMenu;
 
 import java.awt.*;
 import java.util.Calendar;
@@ -10,7 +12,7 @@ import java.util.Calendar;
 public class EntranceFrame extends JFrame {
 
   static Calendar date = Calendar.getInstance();
-  static MenuBar tb = new MenuBar();
+  static TopMenu tb = new TopMenu();
 
   public EntranceFrame(String title) {
     super(title);
@@ -32,8 +34,4 @@ public class EntranceFrame extends JFrame {
     setLocation((int) (dm.getWidth() - getWidth()) / 2, (int) (dm.getHeight() - getHeight()) / 2);
   }
 
-  public static void main(String[] args) {
-    EntranceFrame entrance = new EntranceFrame("Calendar");
-    entrance.setVisible(true);
-  }
 }

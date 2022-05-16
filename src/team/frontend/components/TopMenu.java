@@ -1,6 +1,9 @@
-package team.frontend;
+package team.frontend.components;
 
 import javax.swing.*;
+
+import team.frontend.QueryFrame;
+
 import java.awt.event.*;
 
 class HandleClickQueryDate implements ActionListener {
@@ -20,10 +23,10 @@ class FgMenu extends JMenu {
   }
 }
 
-public class MenuBar extends JMenuBar {
+public class TopMenu extends JMenuBar {
   static FgMenu mTools = new FgMenu("Tools");
 
-  public MenuBar() {
+  public TopMenu() {
     this.add(mTools);
   }
 }
