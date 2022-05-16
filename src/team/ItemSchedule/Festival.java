@@ -1,4 +1,4 @@
-package team.items;
+package team.ItemSchedule;
 
 public class Festival
 {
