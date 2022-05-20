@@ -11,7 +11,7 @@ public class Note
     protected int id; //每个日程拥有唯一的一个id,用于身份识别
     protected long createTime; //日程创建时的时间,
     public String content; //日程的文本内容
-    protected boolean isRepeat; //这个日程是否会重复
+    protected boolean isRepeat; //这个日程是否会重复,true代表会重复,false代表不会重复
 
     //空构造器
     public Note()
