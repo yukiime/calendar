@@ -3,6 +3,9 @@ package team.frontend.components;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;
+
+import team.frontend.Context;
+import team.lunar_solar.LS;
 import team.utils.*;
 
 enum LunarChar {
@@ -12,17 +15,27 @@ enum LunarChar {
   十六, 十七, 十八, 十九, 廿十,
   廿一, 廿二, 廿三, 廿四, 廿五,
   廿六, 廿七, 廿八, 廿九, 三十,
-  未定义
-} // 未定义，测试时用来占位
+}
+
+enum MonthChar {
+  正月, 二月, 三月, 四月,
+  五月, 六月, 七月, 八月,
+  九月, 十月, 十一月, 十二月,
+}
 
 class DayBox extends JPanel {
-  private int solarDate;
-  private LunarChar lunarDate;
+  private int year;
+  private int month; // 1 月 month = 1
+  private int solarDateNum; // 阳历 19 号 solarDate = 19
+  private String lunarDateText;
 
-  DayBox(int solarDate) {
-    setDate(solarDate);
-    this.add(new JLabel(String.valueOf(solarDate)));
-    this.add(new JLabel(String.valueOf(lunarDate)));
+  DayBox(int solarDateNum, int month, int year) {
+    this.year = year;
+    this.month = month;
+    this.solarDateNum = solarDateNum;
+    setDate(solarDateNum);
+    this.add(new JLabel(String.valueOf(solarDateNum)));
+    this.add(new JLabel(String.valueOf(lunarDateText)));
     this.setSize(90, 80);
   }
 
@@ -33,15 +46,20 @@ class DayBox extends JPanel {
    * 
    * @param solarDate 阳历日期数字
    */
-  public void setDate(int solarDate) {
-    this.solarDate = solarDate;
-    this.lunarDate = LunarChar.values()[solarDate - 1];
-    // TODO: run parseFunc
+  public void setDate(int solarDateNum) {
+
+    int lunarDateNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[2];
+    int lunarMonthNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[1];
+    System.out.println(this.year + " " + this.month + " " + solarDateNum + " " + lunarDateNum);
+    if (lunarDateNum == 1)
+      this.lunarDateText = MonthChar.values()[lunarMonthNum - 1].toString();
+    else
+      this.lunarDateText = LunarChar.values()[lunarDateNum - 1].toString();
   }
 }
 
 public class CalendarGrid extends JPanel {
-  private DayBox[] dayBoxGroup = new DayBox[35];
+  private DayBox[] dayBoxGroup = new DayBox[42];
 
   /**
    * 用于渲染每个格子
@@ -60,25 +78,30 @@ public class CalendarGrid extends JPanel {
 
     // 渲染表中上个月的部分日期
     for (int i = 0; i < firstDay; i++) {
-      dayBoxGroup[i] = new DayBox(DateCalculator.dayOfLastMonth(date) - (firstDay - i - 1));
+      int year = Context.month - 1 == 0 ? Context.year - 1 : Context.year;
+      int month = Context.month - 1 == 0 ? 12 : Context.month - 1;
+      dayBoxGroup[i] = new DayBox(DateCalculator.dayOfLastMonth(date) - (firstDay - i - 1), month, year);
       this.add(dayBoxGroup[i]);
     }
 
     // 渲染表中本月的所有日期
     for (int i = firstDay; i < dayOfMonth + firstDay; i++) {
-      dayBoxGroup[i] = new DayBox(i - firstDay + 1);
+      dayBoxGroup[i] = new DayBox(i - firstDay + 1, Context.month, Context.year);
       this.add(dayBoxGroup[i]);
     }
 
     // 渲染表中下个月的部分日期
-    for (int i = dayOfMonth + firstDay; i < 35; i++) {
-      dayBoxGroup[i] = new DayBox(i - dayOfMonth - firstDay + 1);
+    for (int i = dayOfMonth + firstDay; i < 42; i++) {
+      int year = Context.month + 1 == 13 ? Context.year + 1 : Context.year;
+      int month = Context.month + 1 == 13 ? 1 : Context.month + 1;
+
+      dayBoxGroup[i] = new DayBox(i - dayOfMonth - firstDay + 1, month, year);
       this.add(dayBoxGroup[i]);
     }
   }
 
   public CalendarGrid(Calendar date) {
-    this.setLayout(new GridLayout(5, 7));
+    this.setLayout(new GridLayout(6, 7));
     this.renderBox(date);
   }
 }

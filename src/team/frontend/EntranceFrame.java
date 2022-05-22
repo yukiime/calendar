@@ -16,8 +16,7 @@ public class EntranceFrame extends JFrame {
 
   public EntranceFrame(String title) {
     super(title);
-    int month = 12; // 数字几代表几月
-    date.set(2021, month - 1, 1);
+    date.set(Context.year, Context.month- 1, 1);
     Header header = new Header(date);
     CalendarGrid cg = new CalendarGrid(date);
     setSize(800, 500);
