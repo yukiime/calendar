@@ -1,6 +1,12 @@
 package team.Data;
 
-public class FestivalData
+import java.util.ArrayList;
+
+public class FestivalData <T>
 {
 
+    /**
+     * 搞个泛型
+     */
+    ArrayList<T> arrayList =new ArrayList<>();
 }
