@@ -1,12 +1,35 @@
 package team.frontend.components;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Calendar;
 
 import team.frontend.Context;
 import team.lunar_solar.LS;
 import team.utils.*;
+
+class ms implements MouseListener {
+
+  public void mouseClicked(MouseEvent e) {
+    System.out.println(((DayBox) e.getSource()).getSolarDateNum());
+    // TODO:
+  }
+
+  public void mousePressed(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseReleased(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseEntered(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseExited(java.awt.event.MouseEvent e) {
+  }
+
+}
 
 class DayBox extends JPanel {
   private int year;
@@ -19,9 +42,31 @@ class DayBox extends JPanel {
     this.month = month;
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
+    this.addMouseListener(new ms());
     this.add(new JLabel(String.valueOf(solarDateNum)));
     this.add(new JLabel(String.valueOf(lunarDateText)));
     this.setSize(90, 80);
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    e.getActionCommand();
+  }
+
+  public int getYear() {
+    return this.year;
+  }
+
+  public int getMonth() {
+    return this.month;
+
+  }
+
+  public int getSolarDateNum() {
+    return this.solarDateNum;
+  }
+
+  public String getLunString() {
+    return this.lunarDateText;
   }
 
   /**
@@ -43,7 +88,7 @@ class DayBox extends JPanel {
 }
 
 public class CalendarGrid extends JPanel {
-  private DayBox[] dayBoxGroup = new DayBox[42];
+  public static DayBox[] dayBoxGroup = new DayBox[42];
 
   /**
    * 用于渲染每个格子
