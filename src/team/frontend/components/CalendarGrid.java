@@ -8,21 +8,6 @@ import team.frontend.Context;
 import team.lunar_solar.LS;
 import team.utils.*;
 
-enum LunarChar {
-  初一, 初二, 初三, 初四, 初五,
-  初六, 初七, 初八, 初九, 初十,
-  十一, 十二, 十三, 十四, 十五,
-  十六, 十七, 十八, 十九, 廿十,
-  廿一, 廿二, 廿三, 廿四, 廿五,
-  廿六, 廿七, 廿八, 廿九, 三十,
-}
-
-enum MonthChar {
-  正月, 二月, 三月, 四月,
-  五月, 六月, 七月, 八月,
-  九月, 十月, 十一月, 十二月,
-}
-
 class DayBox extends JPanel {
   private int year;
   private int month; // 1 月 month = 1
@@ -44,17 +29,16 @@ class DayBox extends JPanel {
    * 测试阶段暂时把阴历和阳历设置成一样了
    * 因为阳历有 31 天，所以阴历词语枚举设置了一个占位符
    * 
-   * @param solarDate 阳历日期数字
+   * @param solarDateNum 阳历日期数字
    */
   public void setDate(int solarDateNum) {
 
     int lunarDateNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[2];
     int lunarMonthNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[1];
-    System.out.println(this.year + " " + this.month + " " + solarDateNum + " " + lunarDateNum);
     if (lunarDateNum == 1)
-      this.lunarDateText = MonthChar.values()[lunarMonthNum - 1].toString();
+      this.lunarDateText = Context.MonthChar.values()[lunarMonthNum - 1].toString();
     else
-      this.lunarDateText = LunarChar.values()[lunarDateNum - 1].toString();
+      this.lunarDateText = Context.LunarChar.values()[lunarDateNum - 1].toString();
   }
 }
 
