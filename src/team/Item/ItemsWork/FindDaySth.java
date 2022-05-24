@@ -1,5 +1,7 @@
 package team.Item.ItemsWork;
+import team.Data.FestivalData;
 import team.Data.ScheduleData;
+import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Schedule;
 import team.Projectexception.ValueException;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class FindDaySth
      * 以long的Millis形式传入
      * 以ArrayList形式传回
      * list中已经按order从大到小排序
-     * @param dayTime
+     * @param dayTime 当日的时间戳
      * @return scheduleList
      */
     public static ArrayList<Schedule> findAllSchedule(long dayTime) throws ValueException
@@ -42,8 +44,8 @@ public class FindDaySth
     /**
      * 获取当天的没有重复的Schedule
      * 即在当天创建的Schedule
-     * @param dayTime
-     * @return
+     * @param dayTime 当日的时间戳
+     * @return scheduleList
      */
     public static ArrayList<Schedule> findScheduleArray(long dayTime)
     {
@@ -103,7 +105,7 @@ public class FindDaySth
     /**
      * 获取符合的重复的Schedule
      * 以list的形式返回
-     * @param dayTime
+     * @param dayTime 当日的时间戳
      * @return checkRepeat(dayTime,scheduleList)
      */
     public static ArrayList<Schedule> findScheduleArrayRepeat(long dayTime) throws ValueException {
@@ -166,10 +168,10 @@ public class FindDaySth
      * 进行第二次筛选
      * 返回重复日程list中会在当天重复的日程list
      * 返回以list的形式返回
-     * @param dayTime
-     * @param arrayList
+     * @param dayTime 当日的时间戳
+     * @param arrayList 是重复的日程列表,还需要进一步判断是否符合当天
      * @return repeatList
-     * @throws ValueException
+     * @throws ValueException 值错误
      */
     public static ArrayList<Schedule> checkRepeat(long dayTime, ArrayList<Schedule> arrayList) throws ValueException {
 
@@ -226,5 +228,39 @@ public class FindDaySth
             }
         }
         return repeatList;
+    }
+
+    /**
+     * 返回当日的纪念日/节日列表
+     * 已按时间先后排序
+     * @param Time 当日的时间戳
+     * @return todayList
+     */
+    public static ArrayList<CommemorationDay> findCommemorationDays_festival(long Time)
+    {
+        ArrayList<CommemorationDay> arrayList = FestivalData.commemorationDays_festival;
+        ArrayList<CommemorationDay> todayList = new ArrayList<>();
+
+        //获取Time这个时间点的月份,日期
+        int[] array = ScheduleWork.findDate(Time);
+        //下标
+        int index = 0;
+
+        int start = FestivalData.sum(array[0] - 1); //该月份的第一天
+        int end = FestivalData.sum(array[0]) - 1; //该月份的最后一天
+
+        for (index = start;index <= end;index++)
+        {
+            if ( arrayList.get(index).getDay() == array[1] )
+            {
+                todayList.add(arrayList.get(index));
+            }
+            else if(arrayList.get(index).getDay() > array[1])
+            {
+                break;
+            }
+        }
+
+        return todayList;
     }
 }
