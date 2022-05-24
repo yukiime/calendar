@@ -53,6 +53,7 @@ public class FestivalData
 
     /**
      * 初始化节日
+     * 也可以当做清空纪念日的操作
      */
     public static void FestivalDataBase()
     {
