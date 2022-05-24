@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.text.Style;
 
 import team.lunar_solar.LS;
+import team.utils.NewLabel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -23,9 +24,9 @@ class HandleParseLunar2Solar implements ActionListener {
       }
       int monthDay = Context.LunarChar.valueOf(tmp.split("月")[1]).ordinal() + 1;
       int res[] = LS.lunarToSolar(year, month, monthDay, isLeapMonth);
-      QueryFrame.rp.setResult("阳历 " + res[0] + "年 " + res[1] + "月 " + res[2] + "日"); 
+      QueryFrame.rp.setResult("阳历 " + res[0] + "年 " + res[1] + "月 " + res[2] + "日");
     } catch (Exception err) {
-      System.err.println(err.getMessage());
+      System.err.println("Exception: " + err.getMessage());
       QueryFrame.rp.setResult("转换失败");
     }
   }
@@ -47,7 +48,7 @@ class HandleParseSolar2Lunar implements ActionListener {
                   + " "
                   + Context.LunarChar.values()[res[2] - 1]);
     } catch (Exception err) {
-      System.err.println(err.getMessage());
+      System.err.println("Exception: " + err.getMessage());
       QueryFrame.rp.setResult("转换失败");
     }
   }
@@ -59,7 +60,7 @@ class Lunar2SolarPane extends JPanel {
 
   Lunar2SolarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new JLabel("阴历日期："));
+    this.add(new NewLabel("h2", "阴历日期："));
     this.add(lunarInput);
     btn.addActionListener(new HandleParseLunar2Solar());
     this.add(btn);
@@ -72,7 +73,7 @@ class Solar2LunarPane extends JPanel {
 
   Solar2LunarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new JLabel("阳历日期："));
+    this.add(new NewLabel("h2", "阳历日期："));
     this.add(solarInput);
     btn.addActionListener(new HandleParseSolar2Lunar());
     this.add(btn);
@@ -81,10 +82,10 @@ class Solar2LunarPane extends JPanel {
 }
 
 class ResultPane extends JPanel {
-  private JLabel result = new JLabel("等待输入...");
+  private NewLabel result = new NewLabel("等待输入...");
 
   ResultPane() {
-    this.add(new JLabel("结果："));
+    this.add(new NewLabel("结果："));
     this.add(result);
   }
 

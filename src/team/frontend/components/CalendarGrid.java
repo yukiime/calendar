@@ -43,9 +43,10 @@ class DayBox extends JPanel {
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
     this.addMouseListener(new ms());
-    this.add(new JLabel(String.valueOf(solarDateNum)));
-    this.add(new JLabel(String.valueOf(lunarDateText)));
+    this.add(new NewLabel("h1", String.valueOf(solarDateNum)));
+    this.add(new NewLabel("h3", lunarDateText));
     this.setSize(90, 80);
+    this.setBackground(new Color(255, 229, 143));
   }
 
   public void actionPerformed(ActionEvent e) {
