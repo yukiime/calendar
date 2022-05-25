@@ -29,7 +29,8 @@ public class FindDaySth
     public static ArrayList<Schedule> findAllSchedule(long dayTime) throws ValueException
     {
         ArrayList<Schedule> scheduleList = findScheduleArray(dayTime);
-        scheduleList.addAll(findScheduleArrayRepeat(dayTime));
+        ArrayList<Schedule> scheduleList2 = findScheduleArrayRepeat(dayTime);
+        scheduleList.addAll(scheduleList2);
 
         if(scheduleList.size() >= 2)
         {
@@ -59,7 +60,7 @@ public class FindDaySth
         //判断是否为空
         if ( end == -1 || (arrayList.get(end).getCreateTime() < dayTime) || (arrayList.get(0).getCreateTime() > dayTime))
         {
-            return null; //不会产生空指针
+            return scheduleList; //不会产生空指针
         }
         //在队列中二分搜索
         else
@@ -91,11 +92,13 @@ public class FindDaySth
                     }
 
                     //向后搜索
-                    while (arrayList.get(anchor).getCreateTime() == dayTime)
+                    while (anchor < arrayList.size() && arrayList.get(anchor).getCreateTime() == dayTime)
                     {
                         scheduleList.add(arrayList.get(anchor));  //将符合的list元素存入新的list的末尾
                         anchor++;
                     }
+
+                    break;
                 }
             }
         }
@@ -110,7 +113,7 @@ public class FindDaySth
      */
     public static ArrayList<Schedule> findScheduleArrayRepeat(long dayTime) throws ValueException {
 
-        ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayNotRepeat();
+        ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayRepeat();
         ArrayList<Schedule> scheduleList = new ArrayList<>();
 
         int end = arrayList.size() - 1; //队列的末尾元素的index
@@ -151,6 +154,7 @@ public class FindDaySth
                     }
 
                     end = mid - 1; // 方便下面赋值
+                    break;
                 }
             }
 
@@ -244,7 +248,7 @@ public class FindDaySth
         //获取Time这个时间点的月份,日期
         int[] array = ScheduleWork.findDate(Time);
         //下标
-        int index = 0;
+        int index;
 
         int start = FestivalData.sum(array[0] - 1); //该月份的第一天
         int end = FestivalData.sum(array[0]) - 1; //该月份的最后一天

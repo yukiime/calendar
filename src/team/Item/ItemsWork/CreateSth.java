@@ -115,6 +115,11 @@ public class CreateSth
         }
     }
 
+    /**
+     * 创建默认年重复的纪念日
+     * @param createTime 创建的时间
+     * @param content 文本
+     */
     public static void createCommemorationDay(long createTime,String content)
     {
         int len = FestivalData.len + 1;

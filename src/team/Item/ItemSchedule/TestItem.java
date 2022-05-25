@@ -1,23 +1,20 @@
 package team.Item.ItemSchedule;
 import team.Data.FestivalData;
 import team.Data.ScheduleData;
-import team.Item.ItemsWork.CreateSth;
-import team.Item.ItemsWork.DeleteSth;
-import team.Item.ItemsWork.FindDaySth;
+import team.Item.ItemsWork.*;
 import team.Projectexception.ArrayException;
+import team.Projectexception.ValueException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+
 /**
  * 用途:
  * 个人测试使用
  */
 public class TestItem
 {
-    public static void main(String[] args) throws ParseException, ArrayException {
+    public static void main(String[] args) throws  ArrayException, ValueException {
 
         /**
         SimpleDateFormat("yyyy年MM月dd日E");
@@ -52,16 +49,54 @@ public class TestItem
 
         ArrayList<CommemorationDay> arrayList = FindDaySth.findCommemorationDays_festival(time);
 
-        System.out.println(arrayList.size());
+        ArrayList<Schedule> arrayList1 = ScheduleData.getScheduleArrayRepeat();
 
-        for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println(arrayList.get(i).getContent());
+        CreateSthRepeat.createSchedule(56562626262323131L,"测试0-1",true, (short) 1);
+        CreateSthRepeat.createSchedule(5656262626131L,"测试0-2",true, (short) 1);
+        CreateSthRepeat.createSchedule(12121216662323131L,"测试0-3",true, (short) 1);
+        CreateSthRepeat.createSchedule(4841452323131L,"测试0-4",true, (short) 1);
+        CreateSthRepeat.createSchedule(99999926262323131L,"测试0-5",true, (short) 1);
+
+        for (Schedule schedule : arrayList1) {
+            System.out.println(schedule.getId()+" "+schedule.getCreateTime()+" "+schedule.getContent());
         }
 
+        ArrayList<Schedule> arrayList3 = ScheduleData.getScheduleArrayNotRepeat();
 
+        for (Schedule schedule : arrayList3) {
+            System.out.println(schedule.getContent());
+        }
 
+        ArrayList<Schedule> arrayList2 = FindDaySth.findAllSchedule(56562626262323131L);
 
+        System.out.println(arrayList2.size());
 
+        for (Schedule schedule : arrayList2) {
+            System.out.println(schedule.getId()+" "+schedule.getCreateTime()+" "+schedule.getContent());
+        }
 
+        System.out.println("-------------------------------------------------------");
+
+        DeleteSth.deleteSchedule(7,56562626262323131L,true);
+
+        ArrayList<Schedule> arrayList4 = ScheduleData.getScheduleArrayRepeat();
+
+        for (Schedule schedule : arrayList4) {
+            System.out.println(schedule.getContent());
+        }
+
+        System.out.println("-------------------------------------------------------");
+
+        ArrayList<CommemorationDay> arrayList5 = FestivalData.commemorationDays_festival;
+
+        for (CommemorationDay commemorationDay : arrayList5) {
+            System.out.println(commemorationDay.getId()+" "+commemorationDay.getContent());
+        }
+
+        DeleteSth.deleteCommemorationDays_festival(25);
+
+        for (CommemorationDay commemorationDay : arrayList5) {
+            System.out.println(commemorationDay.getId()+" "+commemorationDay.getContent());
+        }
     }
 }
