@@ -1,7 +1,6 @@
 package team.frontend;
 
 import javax.swing.*;
-import javax.swing.text.Style;
 
 import team.lunar_solar.LS;
 import team.utils.NewLabel;
@@ -60,7 +59,7 @@ class Lunar2SolarPane extends JPanel {
 
   Lunar2SolarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new NewLabel("h2", "阴历日期："));
+    this.add(new NewLabel("h3", "阴历日期："));
     this.add(lunarInput);
     btn.addActionListener(new HandleParseLunar2Solar());
     this.add(btn);
@@ -73,7 +72,7 @@ class Solar2LunarPane extends JPanel {
 
   Solar2LunarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new NewLabel("h2", "阳历日期："));
+    this.add(new NewLabel("h3", "阳历日期："));
     this.add(solarInput);
     btn.addActionListener(new HandleParseSolar2Lunar());
     this.add(btn);
@@ -82,10 +81,10 @@ class Solar2LunarPane extends JPanel {
 }
 
 class ResultPane extends JPanel {
-  private NewLabel result = new NewLabel("等待输入...");
+  private NewLabel result = new NewLabel("h2", "等待输入...");
 
   ResultPane() {
-    this.add(new NewLabel("结果："));
+    this.add(new NewLabel("h3", "结果："));
     this.add(result);
   }
 
@@ -100,7 +99,7 @@ public class QueryFrame extends JFrame {
   public static ResultPane rp = new ResultPane();
 
   public QueryFrame() {
-    super("Query Date");
+    super("日历转换");
     setSize(400, 200);
     Container container = this.getContentPane();
     container.setLayout(new FlowLayout());

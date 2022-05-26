@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import javax.swing.*;
 
+import team.frontend.Context;
 import team.utils.NewLabel;
 
 public class Header extends JPanel {
@@ -17,6 +18,6 @@ public class Header extends JPanel {
     titleLabel.setStyle("h1");
     titleLabel.setText(title);
     this.add(titleLabel);
-    this.setBackground(new Color(250, 173, 20));
+    this.setBackground(Context.goldColors[5]);
   }
 }

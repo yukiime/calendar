@@ -1,8 +1,21 @@
 package team.frontend;
 
+import java.awt.*;
+
 public class Context {
   public static int year = 2022;
   public static int month = 4;
+
+  public static Color[] goldColors = {
+      new Color(255, 251, 230),
+      new Color(255, 241, 184),
+      new Color(255, 229, 143),
+      new Color(255, 214, 102),
+      new Color(255, 197, 61),
+      new Color(250, 173, 20),
+  };
+
+  public static int selectedNum = 0;
 
   public static enum MonthChar {
     正月, 二月, 三月, 四月,

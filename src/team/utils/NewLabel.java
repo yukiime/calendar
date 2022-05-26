@@ -19,6 +19,11 @@ public class NewLabel extends JLabel {
     this.setText(content);
   }
 
+  public void setContent(String type, String content) {
+    setStyle(type);
+    this.setText(content);
+  }
+
   public void setStyle(String type) {
     if (type.equals("h1"))
       setFont(new Font("黑体", Font.BOLD, 16));
