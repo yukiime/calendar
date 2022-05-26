@@ -1,27 +1,93 @@
 package team.frontend.components;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Calendar;
 
 import team.frontend.Context;
+import team.frontend.EntranceFrame;
 import team.lunar_solar.LS;
 import team.utils.*;
 
+class ms implements MouseListener {
+
+  public void mouseClicked(MouseEvent e) {
+    DayBox obj = (DayBox) e.getSource();
+
+    CalendarGrid.dayBoxGroup[Context.selectedNum].release(); // 释放上次的日期格子
+    obj.select(); // 选中当前点击的格子
+    Context.selectedNum = obj.getIndex(); // 储存当前选中格子的索引
+
+    EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum(), obj.getLunarDateText());
+  }
+
+  public void mousePressed(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseReleased(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseEntered(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseExited(java.awt.event.MouseEvent e) {
+  }
+
+}
+
 class DayBox extends JPanel {
+  private int index;
   private int year;
   private int month; // 1 月 month = 1
   private int solarDateNum; // 阳历 19 号 solarDate = 19
   private String lunarDateText;
 
-  DayBox(int solarDateNum, int month, int year) {
+  DayBox(int solarDateNum, int month, int year, int index) {
+    this.index = index;
     this.year = year;
     this.month = month;
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
-    this.add(new JLabel(String.valueOf(solarDateNum)));
-    this.add(new JLabel(String.valueOf(lunarDateText)));
+    this.addMouseListener(new ms());
+    this.add(new NewLabel("h1", String.valueOf(solarDateNum)));
+    this.add(new NewLabel("h3", lunarDateText));
     this.setSize(90, 80);
+    this.setBackground(Context.goldColors[2]);
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    e.getActionCommand();
+  }
+
+  public int getYear() {
+    return this.year;
+  }
+
+  public int getMonth() {
+    return this.month;
+
+  }
+
+  public int getSolarDateNum() {
+    return this.solarDateNum;
+  }
+
+  public String getLunarDateText() {
+    return this.lunarDateText;
+  }
+
+  public int getIndex() {
+    return this.index;
+  }
+
+  public void select() {
+    this.setBackground(Context.goldColors[4]);
+  }
+
+  public void release() {
+    this.setBackground(Context.goldColors[2]);
   }
 
   /**
@@ -43,7 +109,7 @@ class DayBox extends JPanel {
 }
 
 public class CalendarGrid extends JPanel {
-  private DayBox[] dayBoxGroup = new DayBox[42];
+  public static DayBox[] dayBoxGroup = new DayBox[42];
 
   /**
    * 用于渲染每个格子
@@ -64,13 +130,13 @@ public class CalendarGrid extends JPanel {
     for (int i = 0; i < firstDay; i++) {
       int year = Context.month - 1 == 0 ? Context.year - 1 : Context.year;
       int month = Context.month - 1 == 0 ? 12 : Context.month - 1;
-      dayBoxGroup[i] = new DayBox(DateCalculator.dayOfLastMonth(date) - (firstDay - i - 1), month, year);
+      dayBoxGroup[i] = new DayBox(DateCalculator.dayOfLastMonth(date) - (firstDay - i - 1), month, year, i);
       this.add(dayBoxGroup[i]);
     }
 
     // 渲染表中本月的所有日期
     for (int i = firstDay; i < dayOfMonth + firstDay; i++) {
-      dayBoxGroup[i] = new DayBox(i - firstDay + 1, Context.month, Context.year);
+      dayBoxGroup[i] = new DayBox(i - firstDay + 1, Context.month, Context.year, i);
       this.add(dayBoxGroup[i]);
     }
 
@@ -79,12 +145,13 @@ public class CalendarGrid extends JPanel {
       int year = Context.month + 1 == 13 ? Context.year + 1 : Context.year;
       int month = Context.month + 1 == 13 ? 1 : Context.month + 1;
 
-      dayBoxGroup[i] = new DayBox(i - dayOfMonth - firstDay + 1, month, year);
+      dayBoxGroup[i] = new DayBox(i - dayOfMonth - firstDay + 1, month, year, i);
       this.add(dayBoxGroup[i]);
     }
   }
 
   public CalendarGrid(Calendar date) {
+    this.setSize(630, 425);
     this.setLayout(new GridLayout(6, 7));
     this.renderBox(date);
   }
