@@ -159,7 +159,7 @@ public class DeleteSth
 
 
     /**
-     * 还没有进行多组测试
+     * 还没有进行多组测试 不建议调用
      * 用于删除某个节日/纪念日
      * @param  id 识别id
      */

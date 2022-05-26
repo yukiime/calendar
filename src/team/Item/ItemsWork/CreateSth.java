@@ -180,4 +180,90 @@ public class CreateSth
         //维护monthIndex
         FestivalData.treeAdd(commemorationDay.getMonth(),1);
     }
+
+
+    /**
+     * 没有完成测试 不建议调用
+     * @param createTime 创建时间
+     * @param content 文本
+     * @param repeatCode 重复类型
+     * @throws ValueException repeatCode传递错误
+     */
+    public static void createCommemorationDay(long createTime,String content,short repeatCode) throws ValueException {
+
+        if(repeatCode == 1)
+        {
+            createCommemorationDay(createTime,content);
+        }
+        else if(repeatCode == 2)
+        {
+            int len = FestivalData.len + 1;
+
+            CommemorationDay commemorationDay = new CommemorationDay(len,createTime,content,repeatCode);
+
+            //13月的第一个元素的下标
+            int start = FestivalData.sum(12);
+            //最后一个元素的下标
+            int end = FestivalData.commemorationDays_festival.size() - 1;
+
+
+            /**
+             * 插入到十三月吧（
+             * 下面这些不知道能不能套用
+             */
+            //进行插入操作
+            if (FestivalData.commemorationDays_festival.get(end).getDay() <= commemorationDay.getDay())
+            {
+                FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
+            }
+            else if (FestivalData.commemorationDays_festival.get(start).getDay() > commemorationDay.getDay() )
+            {
+                FestivalData.commemorationDays_festival.add(start,commemorationDay);
+            }
+            else
+            {
+                int mid;
+                boolean flag = false;
+
+                while (start <= end)
+                {
+                    mid = (start + end) / 2;
+
+                    if (FestivalData.commemorationDays_festival.get(mid).getDay() == commemorationDay.getDay())
+                    {
+                        for (int i = mid; i <= end; i++)
+                        {
+                            if(FestivalData.commemorationDays_festival.get(i).getDay() > commemorationDay.getDay())
+                            {
+                                FestivalData.commemorationDays_festival.add(i,commemorationDay);
+                                flag = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else if (FestivalData.commemorationDays_festival.get(mid).getDay() < commemorationDay.getDay())
+                    {
+                        start = mid + 1;
+                    }
+                    else if (FestivalData.commemorationDays_festival.get(mid).getDay() > commemorationDay.getDay())
+                    {
+                        end = mid - 1;
+                    }
+                }
+
+                if (!flag)
+                {
+                    FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
+                }
+            }
+
+            //维护monthIndex
+            FestivalData.treeAdd(13,1);
+        }
+        else
+        {
+            throw new ValueException("创建commemorationDay时repeatCode传入超出范围");
+        }
+    }
 }
