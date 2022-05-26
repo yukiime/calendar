@@ -1,4 +1,5 @@
 package team.Item.ItemsWork;
+import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Schedule;
 import team.Data.*;
 import team.Projectexception.ArrayException;
@@ -76,6 +77,13 @@ public class CreateSth
 
                 mid = (start + end) / 2;                //取中间值
 
+                /**
+                 * 05.24
+                 * 要变更if-else顺序 不然会出bug
+                 * 另一个地方也要改
+                 * 如果start正好是最后一个
+                 * 其实没关系
+                 */
                 //查询下标的数据比传入数据小,下一个搜索区段的首下标更改为该下标+1
                 if (ScheduleData.getIndexSchedule(mid).getCreateTime() <= createTime) {
                     start = mid + 1;
@@ -105,5 +113,71 @@ public class CreateSth
             //此时队列中不存在与传入数据相同的元素,故进行插入
             return end + 1;
         }
+    }
+
+    /**
+     * 创建默认年重复的纪念日
+     * @param createTime 创建的时间
+     * @param content 文本
+     */
+    public static void createCommemorationDay(long createTime,String content)
+    {
+        int len = FestivalData.len + 1;
+
+        CommemorationDay commemorationDay = new CommemorationDay(len,createTime,content);
+
+        int start = FestivalData.sum(commemorationDay.getMonth() - 1); //该月份的第一天
+        int end = FestivalData.sum(commemorationDay.getMonth()) - 1; //该月份的最后一天
+
+
+        //进行插入操作
+        if (FestivalData.commemorationDays_festival.get(end).getDay() <= commemorationDay.getDay())
+        {
+            FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
+        }
+        else if (FestivalData.commemorationDays_festival.get(start).getDay() > commemorationDay.getDay() )
+        {
+            FestivalData.commemorationDays_festival.add(start,commemorationDay);
+        }
+        else
+        {
+            int mid;
+            boolean flag = false;
+
+            while (start <= end)
+            {
+                mid = (start + end) / 2;
+
+                if (FestivalData.commemorationDays_festival.get(mid).getDay() == commemorationDay.getDay())
+                {
+                    for (int i = mid; i <= end; i++)
+                    {
+                        if(FestivalData.commemorationDays_festival.get(i).getDay() > commemorationDay.getDay())
+                        {
+                            FestivalData.commemorationDays_festival.add(i,commemorationDay);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    break;
+                }
+                else if (FestivalData.commemorationDays_festival.get(mid).getDay() < commemorationDay.getDay())
+                {
+                    start = mid + 1;
+                }
+                else if (FestivalData.commemorationDays_festival.get(mid).getDay() > commemorationDay.getDay())
+                {
+                    end = mid - 1;
+                }
+            }
+
+            if (!flag)
+            {
+                FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
+            }
+        }
+
+        //维护monthIndex
+        FestivalData.treeAdd(commemorationDay.getMonth(),1);
     }
 }

@@ -10,7 +10,7 @@ public class ScheduleWork
     /**
      * 找出createTime这个时间的日期
      * 返回记录了 月 日 星期 的数组
-     * @param createTime
+     * @param createTime 当日的时间戳
      * @return array
      */
     public static int[] findDate(long createTime)
@@ -27,9 +27,9 @@ public class ScheduleWork
 
     /**
      * 并集排序
-     * @param arrayList
+     * @param arrayList 需要排序的list
      * @return order_3
-     * @throws ValueException
+     * @throws ValueException 值错误
      */
     public static ArrayList<Schedule> OrderSort(ArrayList<Schedule> arrayList) throws ValueException {
 
