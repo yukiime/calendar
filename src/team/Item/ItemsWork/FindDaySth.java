@@ -235,23 +235,41 @@ public class FindDaySth
     }
 
     /**
+     * 按照年重复排在月重复之前的顺序 (可以要求修改顺序)
      * 返回当日的纪念日/节日列表
-     * 已按时间先后排序
-     * @param Time 当日的时间戳
+     * @param time 当日的时间戳
      * @return todayList
      */
-    public static ArrayList<CommemorationDay> findCommemorationDays_festival(long Time)
+    public static ArrayList<CommemorationDay> findCommemorationDays_festival(long time)
     {
         ArrayList<CommemorationDay> arrayList = FestivalData.commemorationDays_festival;
         ArrayList<CommemorationDay> todayList = new ArrayList<>();
 
         //获取Time这个时间点的月份,日期
-        int[] array = ScheduleWork.findDate(Time);
+        int[] array = ScheduleWork.findDate(time);
         //下标
         int index;
 
         int start = FestivalData.sum(array[0] - 1); //该月份的第一天
         int end = FestivalData.sum(array[0]) - 1; //该月份的最后一天
+
+        for (index = start;index <= end;index++)
+        {
+            if ( arrayList.get(index).getDay() == array[1] )
+            {
+                todayList.add(arrayList.get(index));
+            }
+            else if(arrayList.get(index).getDay() > array[1])
+            {
+                break;
+            }
+        }
+
+        //开始在13月中 寻找月重复的纪念日
+        //13月的第一个元素的下标
+        start = FestivalData.sum(12);
+        //最后一个元素的下标
+        end = FestivalData.commemorationDays_festival.size() - 1;
 
         for (index = start;index <= end;index++)
         {

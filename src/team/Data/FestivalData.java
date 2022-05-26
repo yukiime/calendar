@@ -7,11 +7,17 @@ import java.util.ArrayList;
 public class FestivalData
 {
     //存储festival和commemorationDay
-    public static ArrayList<CommemorationDay> commemorationDays_festival =new ArrayList<CommemorationDay>();
+    public static ArrayList<CommemorationDay> commemorationDays_festival = new ArrayList<>();
     //用树状数组维护,第i位代表i+1月份的第一个日期
     public static int[] monthIndex = new int[17];
     //只增不长 维护长度
     public static int len = 53;
+
+    public static int getIdOfLen()
+    {
+        len = len + 1;
+        return len;
+    }
 
     //将一个二进制数的所有高位一都去掉，只留下最低位的1
     public static int lowBit(int k)

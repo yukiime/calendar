@@ -122,16 +122,18 @@ public class CreateSth
      */
     public static void createCommemorationDay(long createTime,String content)
     {
-        int len = FestivalData.len + 1;
+        int len = FestivalData.getIdOfLen();
 
         CommemorationDay commemorationDay = new CommemorationDay(len,createTime,content);
 
         int start = FestivalData.sum(commemorationDay.getMonth() - 1); //该月份的第一天
         int end = FestivalData.sum(commemorationDay.getMonth()) - 1; //该月份的最后一天
 
-
-        //进行插入操作
-        if (FestivalData.commemorationDays_festival.get(end).getDay() <= commemorationDay.getDay())
+        if(end < start) //即当月和下一月都没有元素,start实际上指向上一个有元素的月之后某个有元素的月的第一个元素,end实际指向上一个有元素的月的最后一个元素
+        {
+            FestivalData.commemorationDays_festival.add(start,commemorationDay);
+        }
+        else if (FestivalData.commemorationDays_festival.get(end).getDay() <= commemorationDay.getDay())
         {
             FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
         }
@@ -148,6 +150,7 @@ public class CreateSth
             {
                 mid = (start + end) / 2;
 
+                //有找到日期相同的元素,将其插入到相同日期的元素的末尾
                 if (FestivalData.commemorationDays_festival.get(mid).getDay() == commemorationDay.getDay())
                 {
                     for (int i = mid; i <= end; i++)
@@ -155,7 +158,7 @@ public class CreateSth
                         if(FestivalData.commemorationDays_festival.get(i).getDay() > commemorationDay.getDay())
                         {
                             FestivalData.commemorationDays_festival.add(i,commemorationDay);
-                            flag = true;
+                            flag = true; //已经完成插入操作
                             break;
                         }
                     }
@@ -171,6 +174,7 @@ public class CreateSth
                 }
             }
 
+            //没有找到相同日期的元素
             if (!flag)
             {
                 FestivalData.commemorationDays_festival.add(end+1,commemorationDay);
@@ -197,20 +201,23 @@ public class CreateSth
         }
         else if(repeatCode == 2)
         {
-            int len = FestivalData.len + 1;
+            int len = FestivalData.getIdOfLen();
 
             CommemorationDay commemorationDay = new CommemorationDay(len,createTime,content,repeatCode);
 
-            //13月的第一个元素的下标
-            int start = FestivalData.sum(12);
             //最后一个元素的下标
             int end = FestivalData.commemorationDays_festival.size() - 1;
 
+            //如果此时还没有13月的元素
+            if(FestivalData.commemorationDays_festival.get(end).getRepeatCode() == 1)
+            {
+                FestivalData.commemorationDays_festival.add(commemorationDay);
+                return;
+            }
 
-            /**
-             * 插入到十三月吧（
-             * 下面这些不知道能不能套用
-             */
+            //13月的第一个元素的下标
+            int start = FestivalData.sum(12);
+
             //进行插入操作
             if (FestivalData.commemorationDays_festival.get(end).getDay() <= commemorationDay.getDay())
             {
@@ -218,6 +225,7 @@ public class CreateSth
             }
             else if (FestivalData.commemorationDays_festival.get(start).getDay() > commemorationDay.getDay() )
             {
+                //当天的day of month 比 13月第一个元素的day of month 要小
                 FestivalData.commemorationDays_festival.add(start,commemorationDay);
             }
             else

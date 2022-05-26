@@ -5,7 +5,9 @@ import java.util.Calendar;
 import javax.swing.*;
 
 import team.Item.ItemSchedule.Schedule;
+import team.Item.ItemSchedule.TestItem;
 import team.Item.ItemsWork.FindDaySth;
+import team.Projectexception.ArrayException;
 import team.Projectexception.ValueException;
 import team.frontend.Context;
 import team.utils.DateCalculator;
@@ -42,7 +44,7 @@ public class Sider extends JPanel {
    * @param solarDate     阳历日期
    * @param lunarDateText 阴历日期
    */
-  public void renderSider(int year, int month, int solarDate, String lunarDateText) {
+  public void renderSider(int year, int month, int solarDate, String lunarDateText){
     yearLabel.setContent("h2", String.valueOf(year));
     monthLabel.setContent("h2", String.valueOf(month));
     solarDateLabel.setContent("h2", String.valueOf(solarDate));
@@ -50,10 +52,16 @@ public class Sider extends JPanel {
     long timeStamp = DateCalculator.get0clockTimeStamp(year, month, solarDate);
     System.out.println(timeStamp);
     try {
+
+      //5.26 测试
+      TestItem.siderTest(timeStamp);
+      //测试结束
+
       System.out.println(FindDaySth.findAllSchedule(timeStamp).size());
       // TODO:
-      
-    } catch (ValueException e) {
+
+    } catch (ValueException | ArrayException e)
+    {
       e.printStackTrace();
     }
   }

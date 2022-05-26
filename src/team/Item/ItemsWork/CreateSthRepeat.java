@@ -10,12 +10,12 @@ public class CreateSthRepeat
     /**
      * 仅限于 年重复,月重复,星期重复
      * 构造默认order的有重复的日程
-     * @param createTime
-     * @param content
-     * @param isRepeat
-     * @param repeatCode
-     * @throws ArrayException
-     * @throws ValueException
+     * @param createTime 创建时间/当天的时间
+     * @param content 文本
+     * @param isRepeat 是否是需要重复的Schedule
+     * @param repeatCode 重复类型
+     * @throws ArrayException list出错
+     * @throws ValueException 值出错
      */
     public static void createSchedule(long createTime,String content,boolean isRepeat,short repeatCode) throws ArrayException, ValueException {
         //如果不是重复的日程,进行无重复日程的创建
@@ -56,13 +56,13 @@ public class CreateSthRepeat
     /**
      * 仅限于 自定义重复
      * 构造默认order的有重复的日程
-     * @param createTime
-     * @param content
-     * @param isRepeat
-     * @param repeatDuration
-     * @param repeatCode
-     * @throws ArrayException
-     * @throws ValueException
+     * @param createTime 创建时间/当天的时间
+     * @param content 文本
+     * @param isRepeat 是否是需要重复的Schedule
+     * @param repeatDuration 自定义重复的周期
+     * @param repeatCode 重复类型
+     * @throws ArrayException list出错
+     * @throws ValueException 值出错
      */
     public static void createSchedule(long createTime,String content,boolean isRepeat,int repeatDuration,short repeatCode) throws ArrayException, ValueException {
         if(isRepeat)
@@ -106,13 +106,13 @@ public class CreateSthRepeat
     /**
      * 仅限于 年重复,月重复,星期重复
      * 构造有优先级的日程
-     * @param createTime
-     * @param content
-     * @param isRepeat
-     * @param repeatCode
-     * @param order
-     * @throws ValueException
-     * @throws ArrayException
+     * @param createTime 创建时间/当天的时间
+     * @param content 文本
+     * @param isRepeat 是否重复
+     * @param repeatCode 重复类型
+     * @param order 优先级
+     * @throws ValueException 值出错
+     * @throws ArrayException list出错
      */
     public static void createSchedule(long createTime,String content,boolean isRepeat,short repeatCode,short order) throws ValueException, ArrayException {
 
@@ -164,14 +164,14 @@ public class CreateSthRepeat
     /**
      * 仅限于自定义重复
      * 构造有优先级的日程
-     * @param createTime
-     * @param content
-     * @param isRepeat
-     * @param repeatDuration
-     * @param repeatCode
-     * @param order
-     * @throws ArrayException
-     * @throws ValueException
+     * @param createTime 创建时间/当天的时间
+     * @param content 文本
+     * @param isRepeat 是否重复
+     * @param repeatDuration 自定义重复的周期
+     * @param repeatCode 重复类型/需要为4
+     * @param order 优先级
+     * @throws ArrayException list出错
+     * @throws ValueException 值出错
      */
     public static void createSchedule(long createTime,String content,boolean isRepeat,int repeatDuration,short repeatCode,short order) throws ArrayException, ValueException {
         if(isRepeat)
@@ -224,12 +224,12 @@ public class CreateSthRepeat
         }
     }
 
-    //还没写好,要替换名称
+
     /**
      * 寻找到同一天的日程组的队尾在队列中的位置
-     * @param createTime
-     * @return
-     * @throws ArrayException
+     * @param createTime 创建时间/当天的时间
+     * @return 同一天的日程组的队尾在队列中的位置 + 1
+     * @throws ArrayException list出错
      */
     private static int findLastTimeMatchSchedule(long createTime) throws ArrayException{
 

@@ -1,7 +1,6 @@
 package team.Item.ItemSchedule;
 
 import team.Data.FestivalData;
-import team.Data.ScheduleData;
 import team.Item.ItemsWork.*;
 import team.Projectexception.ArrayException;
 import team.Projectexception.ValueException;
@@ -16,86 +15,83 @@ import java.util.Calendar;
 public class TestItem {
   public static void main(String[] args) throws ArrayException, ValueException {
 
-    /**
-     * SimpleDateFormat("yyyy年MM月dd日E");
-     * String format = simpleDateFormat.format(calendar1.getTime());
-     * System.out.println(format);
-     * 
-     * calendar1.set(10002,11,36);
-     * System.out.println(calendar1.getTimeInMillis());
-     * 
-     * for (int i = 0; i < 12; i++)
-     * {
-     * System.out.println(arrayList.get(a[i]).getMonth());
-     * 
-     * }
-     */
-
-    CreateSth.createSchedule(56562626262323131L, "测试1");
-    CreateSth.createSchedule(5656263131L, "测试2");
-    CreateSth.createSchedule(5656263131L, "测试3");
-    CreateSth.createSchedule(4646222L, "测试4");
-    CreateSth.createSchedule(111L, "测试5");
-    CreateSth.createSchedule(999999999L, "测试6");
-
     FestivalData.FestivalDataBase();
+    ArrayList<CommemorationDay> arrayList = FestivalData.commemorationDays_festival;
+
+    System.out.println(arrayList.size());
+
+    for (CommemorationDay commemorationDay : arrayList) {
+      System.out.println(commemorationDay.getId() + " " + commemorationDay.getContent());
+    }
+
+    System.out.println("--------------------------------------");
 
     Calendar calendar = Calendar.getInstance();
-    calendar.set(2022, 5, 1);
+    calendar.set(2022, Calendar.JUNE,1);
     long time = calendar.getTimeInMillis();
 
-    CreateSth.createCommemorationDay(time, "小明节");
+    //删除
+    DeleteSth.deleteCommemorationDays_festival(29);
+    //创建6.1号
+    CreateSth.createCommemorationDay(time,"小明节");
 
-    ArrayList<CommemorationDay> arrayList = FindDaySth.findCommemorationDays_festival(time);
+    //创建1号
+    CreateSth.createCommemorationDay(time,"测试1号",(short) 2);
+    //创建2号
+    CreateSth.createCommemorationDay((time+86400000L),"测试2号",(short) 2);
+    CreateSth.createCommemorationDay((time+86400000L),"测试2-1号",(short) 2);
+    CreateSth.createCommemorationDay((time+86400000L),"测试2-2号",(short) 2);
+    CreateSth.createCommemorationDay((time+86400000L),"测试2-3号",(short) 2);
+    CreateSth.createCommemorationDay((time+86400000L),"测试2-4号",(short) 2);
+    CreateSth.createCommemorationDay((time+2*86400000L),"测试3-1号",(short) 2);
+    CreateSth.createCommemorationDay((time+86400000L),"测试2-5号",(short) 2);
+    CreateSth.createCommemorationDay((time+15*86400000L),"测试16-1号",(short) 2);
+    CreateSth.createCommemorationDay((time+8*86400000L),"测试9-1号",(short) 2);
+    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-1号",(short) 2);
+    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-2号",(short) 2);
+    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-3号",(short) 2);
+    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-4号",(short) 1);
+    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-5号",(short) 1);
 
-    ArrayList<Schedule> arrayList1 = ScheduleData.getScheduleArrayRepeat();
 
-    CreateSthRepeat.createSchedule(1653494400000L, "测试0-1", true, (short) 1);
-    CreateSthRepeat.createSchedule(1653494400000L, "测试0-2", true, (short) 1);
-    CreateSthRepeat.createSchedule(1653494400000L, "测试0-3", true, (short) 1);
-    CreateSthRepeat.createSchedule(1653494400000L, "测试0-4", true, (short) 1);
-    CreateSthRepeat.createSchedule(1653494400000L, "测试0-5", true, (short) 1);
-
-    for (Schedule schedule : arrayList1) {
-      System.out.println(schedule.getId() + " " + schedule.getCreateTime() + " " + schedule.getContent());
+    for (CommemorationDay commemorationDay : arrayList) {
+      System.out.println(arrayList.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
-    ArrayList<Schedule> arrayList3 = ScheduleData.getScheduleArrayNotRepeat();
+    System.out.println("-----------------------------");
 
-    for (Schedule schedule : arrayList3) {
-      System.out.println(schedule.getContent());
+    ArrayList<CommemorationDay> arrayList1 = FindDaySth.findCommemorationDays_festival(time + 14*86400000L);
+
+    for (CommemorationDay commemorationDay : arrayList1) {
+      System.out.println(arrayList1.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
-    ArrayList<Schedule> arrayList2 = FindDaySth.findAllSchedule(56562626262323131L);
+    System.out.println("-----------------------------");
 
-    System.out.println(arrayList2.size());
+    DeleteSth.deleteCommemorationDays_festival(69);
+    DeleteSth.deleteCommemorationDays_festival(66,time + 14*86400000L,(short) 2);
+    DeleteSth.deleteCommemorationDays_festival(68,time + 14*86400000L,(short) 1);
 
-    for (Schedule schedule : arrayList2) {
-      System.out.println(schedule.getId() + " " + schedule.getCreateTime() + " " + schedule.getContent());
+    for (CommemorationDay commemorationDay : FestivalData.commemorationDays_festival) {
+      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
-    System.out.println("-------------------------------------------------------");
+    System.out.println("-----------------------------");
 
-    DeleteSth.deleteSchedule(7, 56562626262323131L, true);
+    DeleteSth.deleteCommemorationDays_festival(61,time + 2*86400000L);
 
-    ArrayList<Schedule> arrayList4 = ScheduleData.getScheduleArrayRepeat();
-
-    for (Schedule schedule : arrayList4) {
-      System.out.println(schedule.getContent());
+    for (CommemorationDay commemorationDay : FestivalData.commemorationDays_festival) {
+      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
-    System.out.println("-------------------------------------------------------");
+  }
 
-    ArrayList<CommemorationDay> arrayList5 = FestivalData.commemorationDays_festival;
+  public static void siderTest(long time) throws ArrayException, ValueException {
 
-    for (CommemorationDay commemorationDay : arrayList5) {
-      System.out.println(commemorationDay.getId() + " " + commemorationDay.getContent());
-    }
-
-    DeleteSth.deleteCommemorationDays_festival(25);
-
-    for (CommemorationDay commemorationDay : arrayList5) {
-      System.out.println(commemorationDay.getId() + " " + commemorationDay.getContent());
-    }
+    CreateSthRepeat.createSchedule(time, "测试0-1", true, (short) 1);
+    CreateSthRepeat.createSchedule(time, "测试0-2", true, (short) 1);
+    CreateSthRepeat.createSchedule(time, "测试0-3", true, (short) 1);
+    CreateSthRepeat.createSchedule(time, "测试0-4", true, (short) 1);
+    CreateSthRepeat.createSchedule(time, "测试0-5", true, (short) 1);
   }
 }

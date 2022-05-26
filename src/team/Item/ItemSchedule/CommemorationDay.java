@@ -5,7 +5,7 @@ import team.Projectexception.ValueException;
 
 public class CommemorationDay extends Note
 {
-  short repeatCode; // 1代表年重复,2代表月重复.
+  short repeatCode = 1; // 1代表年重复,2代表月重复.
 
   int month;
   int day;
@@ -18,7 +18,7 @@ public class CommemorationDay extends Note
   public CommemorationDay(int id,long time,String content)
   {
     super(id,time,content);
-    repeatCode = 1; //默认为年重复
+    //默认为年重复
     setDate();
   }
 
@@ -52,6 +52,10 @@ public class CommemorationDay extends Note
     int[] array = ScheduleWork.findDate(createTime);
     this.month = array[0];
     this.day = array[1];
+  }
+
+  public short getRepeatCode() {
+    return repeatCode;
   }
 
   public int getMonth() {
