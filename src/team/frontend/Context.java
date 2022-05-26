@@ -4,7 +4,8 @@ import java.awt.*;
 
 public class Context {
   public static int year = 2022;
-  public static int month = 4;
+  public static int month = 5;
+  public static int MILLISECOND_DAY = 86400000;
 
   public static Color[] goldColors = {
       new Color(255, 251, 230),

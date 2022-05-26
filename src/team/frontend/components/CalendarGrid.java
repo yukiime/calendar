@@ -21,7 +21,6 @@ class ms implements MouseListener {
     Context.selectedNum = obj.getIndex(); // 储存当前选中格子的索引
 
     EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum(), obj.getLunarDateText());
-    // TODO:
   }
 
   public void mousePressed(java.awt.event.MouseEvent e) {
