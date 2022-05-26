@@ -15,4 +15,14 @@ public class DateCalculator {
     lastMonthDate.set(year, month, 1);
     return lastMonthDate.getActualMaximum(Calendar.DAY_OF_MONTH);
   }
+
+  public static long get0clockTimeStamp(int year, int month, int day) {
+    Calendar date = Calendar.getInstance();
+    date.set(year, month - 1, day);
+    date.set(Calendar.SECOND, 0);
+    date.set(Calendar.MINUTE, 0);
+    date.set(Calendar.HOUR_OF_DAY, 0);
+    date.set(Calendar.MILLISECOND, 0);
+    return date.getTimeInMillis();
+  }
 }
