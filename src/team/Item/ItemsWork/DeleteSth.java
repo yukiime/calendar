@@ -1,5 +1,7 @@
 package team.Item.ItemsWork;
+import team.Data.FestivalData;
 import team.Data.ScheduleData;
+import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Schedule;
 import team.Projectexception.ArrayException;
 import java.util.ArrayList;
@@ -8,10 +10,10 @@ public class DeleteSth
 {
     /**
      * 用于删除某个日程
-     * @param id
-     * @param createTime
-     * @param isRepeat
-     * @throws ArrayException
+     * @param id 用于身份验证的id
+     * @param createTime 时间戳
+     * @param isRepeat 是否重复
+     * @throws ArrayException 队列异常
      */
     public static void deleteSchedule(int id,long createTime,boolean isRepeat) throws ArrayException {
 
@@ -71,39 +73,42 @@ public class DeleteSth
                     }
                     else
                     {
-                        int index1 = mid;
+                        int index1 = mid - 1;
                         int index2 = mid;
 
                         while (index1 >= 0 || index2 <= END)
                         {
                             //向前搜索
-                            if (index1 > 0)
+                            if (index1 >= 0)
                             {
-                                index1--;
                                 if (arrayList.get(index1).getId() == id)
                                 {
                                     arrayList.remove(index1);
                                     return;
                                 }
+                                index1--;
                             }
                             //向后搜索
-                            if (index2 < END)
+                            if (index2 <= END)
                             {
-                                index2++;
                                 if (arrayList.get(index2).getId() == id)
                                 {
                                     arrayList.remove(index2);
                                     return;
                                 }
+                                index2++;
                             }
                         }
                     }
+
+                    //抛出异常,防止程序死循环
+                    throw new ArrayException("ArrayList中不存在此元素,应该是repeat或id或Time出错,请按优先级顺序检查");
                 }
             }
 
             if(start == end + 1)
             {
-                throw new ArrayException("ArrayList中不存在此元素");
+                throw new ArrayException("ArrayList中不存在此元素,应该是repeat或Time出错,请按优先级顺序检查");
             }
         }
     }
@@ -111,12 +116,12 @@ public class DeleteSth
     /**
      * 用于删除某个日程
      * 直接传入schedule参数
-     * @param schedule
+     * @param schedule 某个日程实例
      */
     public static void deleteSchedule(Schedule schedule)
     {
 
-        ArrayList<Schedule> arrayList = null;
+        ArrayList<Schedule> arrayList;
 
         // 判断是有重复的还是无重复的日程
         if(schedule.isRepeat())
@@ -133,4 +138,41 @@ public class DeleteSth
         }
     }
 
+    /**
+     * 还没有进行多组测试
+     * 用于删除某个节日/纪念日
+    public static void deleteCommemorationDays_festival(int id,long time) throws ArrayException {
+
+
+        for (int i = 0; i < FestivalData.commemorationDays_festival.size(); i++)
+        {
+            if(FestivalData.commemorationDays_festival.get(i).getId() == id)
+            {
+                FestivalData.treeAdd(FestivalData.commemorationDays_festival.get(i).getMonth(),-1);
+                FestivalData.commemorationDays_festival.remove(i);
+                return;
+            }
+        }
+        throw new ArrayException("没在队列中发现id符合的元素");
+    }
+    */
+
+
+    /**
+     * 还没有进行多组测试
+     * 用于删除某个节日/纪念日
+     * @param  id 识别id
+     */
+    public static void deleteCommemorationDays_festival(int id) throws ArrayException {
+        for (int i = 0; i < FestivalData.commemorationDays_festival.size(); i++)
+        {
+            if(FestivalData.commemorationDays_festival.get(i).getId() == id)
+            {
+                FestivalData.treeAdd(FestivalData.commemorationDays_festival.get(i).getMonth(),-1);
+                FestivalData.commemorationDays_festival.remove(i);
+                return;
+            }
+        }
+        throw new ArrayException("没在队列中发现id符合的元素");
+    }
 }
