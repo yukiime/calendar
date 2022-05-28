@@ -285,4 +285,28 @@ public class FindDaySth
 
         return todayList;
     }
+
+    /**
+     * 调用后返回今日的运势信息
+     * @return content 运势的文本信息
+     */
+    public static String todayFortune()
+    {
+        String content; //运势的文本信息
+
+        switch (caseCode)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+        }
+
+        return content;
+    }
 }
