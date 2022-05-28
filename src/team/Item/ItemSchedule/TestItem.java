@@ -13,7 +13,13 @@ import java.util.Calendar;
  * 个人测试使用
  */
 public class TestItem {
-  public static void main(String[] args) throws ArrayException, ValueException {
+  public static void main(String[] args) {
+    for (int i = 0; i < 10000; i++) {
+      System.out.println(FindDaySth.todayFortune());
+    }
+  }
+
+  public static void Test1(String[] args) throws ArrayException, ValueException {
 
     FestivalData.FestivalDataBase();
     ArrayList<CommemorationDay> arrayList = FestivalData.commemorationDays_festival;
