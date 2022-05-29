@@ -11,9 +11,9 @@ import team.frontend.EntranceFrame;
 import team.lunar_solar.LS;
 import team.utils.*;
 
-class ms implements MouseListener {
+class DayBoxMS implements MouseListener {
 
-  public void mouseClicked(MouseEvent e) {
+  public void mouseReleased(MouseEvent e) {
     DayBox obj = (DayBox) e.getSource();
 
     CalendarGrid.dayBoxGroup[Context.selectedNum].release(); // 释放上次的日期格子
@@ -26,7 +26,7 @@ class ms implements MouseListener {
   public void mousePressed(java.awt.event.MouseEvent e) {
   }
 
-  public void mouseReleased(java.awt.event.MouseEvent e) {
+  public void mouseClicked(java.awt.event.MouseEvent e) {
   }
 
   public void mouseEntered(java.awt.event.MouseEvent e) {
@@ -50,7 +50,7 @@ class DayBox extends JPanel {
     this.month = month;
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
-    this.addMouseListener(new ms());
+    this.addMouseListener(new DayBoxMS());
     this.add(new NewLabel("h1", String.valueOf(solarDateNum)));
     this.add(new NewLabel("h3", lunarDateText));
     this.setSize(90, 80);

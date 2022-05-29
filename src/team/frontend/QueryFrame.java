@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import team.lunar_solar.LS;
 import team.utils.NewLabel;
+import team.utils.StaticEvent;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -101,19 +102,14 @@ public class QueryFrame extends JFrame {
   public QueryFrame() {
     super("日历转换");
     setSize(400, 200);
-    Container container = this.getContentPane();
-    container.setLayout(new FlowLayout());
-    container.add(s2lp);
-    container.add(l2sp);
-    container.add(rp);
 
-    centerWindow();
+    this.setLayout(new FlowLayout());
+    this.add(s2lp);
+    this.add(l2sp);
+    this.add(rp);
+
+    StaticEvent.centerWindow(this);
     this.setVisible(true);
   }
 
-  public void centerWindow() {
-    java.awt.Toolkit tk = getToolkit();
-    Dimension dm = tk.getScreenSize();
-    setLocation((int) (dm.getWidth() - getWidth()) / 2, (int) (dm.getHeight() - getHeight()) / 2);
-  }
 }
