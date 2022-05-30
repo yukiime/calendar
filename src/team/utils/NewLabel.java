@@ -32,9 +32,9 @@ public class NewLabel extends JLabel {
     else if (type.equals("h3"))
       setFont(new Font("黑体", Font.BOLD, 12));
     else if (type.equals("text"))
-      setFont(new Font("宋体", Font.PLAIN, 10));
+      setFont(new Font("黑体", Font.PLAIN, 12));
     else
-      setFont(new Font("宋体", Font.PLAIN, 10));
+      setFont(new Font("黑体", Font.PLAIN, 12));
   }
 
 }

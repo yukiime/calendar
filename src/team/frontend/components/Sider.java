@@ -32,7 +32,7 @@ public class Sider extends JPanel {
   public static NewLabel lunarDateTextLabel = new NewLabel();
   public static JButton createBtn = new JButton("+");
   public static ScheduleList scheduleList = new ScheduleList(
-      DateCalculator.get0clockTimeStamp(Calendar.YEAR, Calendar.MONTH, Calendar.DATE));
+      DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
   public static ArrayList<ScheduleWrapper> scheduleListData = new ArrayList<ScheduleWrapper>();
 
   public Sider() {
@@ -74,9 +74,10 @@ public class Sider extends JPanel {
     try {
 
       // 5.26 测试
-      TestItem.siderTest(timeStamp);
+      // TestItem.siderTest(timeStamp);
       // 测试结束
 
+      System.out.println(timeStamp);
       scheduleList.renderScheduleList(timeStamp);
 
       System.out.println(FindDaySth.findAllSchedule(timeStamp).size());

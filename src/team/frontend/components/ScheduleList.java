@@ -10,6 +10,7 @@ import java.awt.event.*;
 import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
+import team.frontend.EntranceFrame;
 import team.frontend.ModifyFrame;
 import team.utils.NewLabel;
 
@@ -80,6 +81,6 @@ public class ScheduleList extends JPanel {
     for (ScheduleWrapper item : scheduleListData) {
       this.add(item);
     }
-
+    this.updateUI();
   }
 }

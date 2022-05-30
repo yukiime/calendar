@@ -5,6 +5,7 @@ import java.awt.*;
 public class Context {
   public static int year = 2022;
   public static int month = 5;
+  public static int solarDate = 2;
   public static int MILLISECOND_DAY = 86400000;
 
   public static Color[] goldColors = {
