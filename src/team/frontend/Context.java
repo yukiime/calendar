@@ -16,7 +16,7 @@ public class Context {
       new Color(250, 173, 20),
   };
 
-  public static int selectedNum = 0;
+  public static int selectedNum = 0; // 选中第几个格子，与日期无关
 
   public static enum MonthChar {
     正月, 二月, 三月, 四月,
