@@ -13,7 +13,7 @@ public class SolarTerm extends CommemorationDay
      * @param day 日
      * @param content 节日名称
      */
-    SolarTerm(int year,int month,int day,String content)
+    public SolarTerm(int year,int month,int day,String content)
     {
         this.year = year;
         this.month = month;

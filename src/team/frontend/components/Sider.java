@@ -20,7 +20,7 @@ class HandleClickCreateBtn implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
-    CreateScheduleFrame csf = new CreateScheduleFrame();
+  //  CreateScheduleFrame csf = new CreateScheduleFrame();
   }
 
 }
