@@ -1,6 +1,5 @@
 package team.frontend.components;
 
-import java.awt.*;
 import java.util.Calendar;
 
 import javax.swing.*;

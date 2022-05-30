@@ -12,25 +12,27 @@ import java.util.Calendar;
  * 用途:
  * 个人测试使用
  */
-public class TestItem
-{
+public class TestItem {
 
-  public static void main(String[] args) throws ArrayException
-  {
+  public static void main(String[] args) throws ArrayException {
     Jieqi();
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2022, Calendar.JUNE, 1);
+    long time = calendar.getTimeInMillis();
+    // ArrayList<CommemorationDay> arrayList1 =
+    // FindDaySth.findCommemorationDays_festival(1654012800000L);
+    ArrayList<CommemorationDay> arrayList1 = FindDaySth.findCommemorationDays_festival(time + 14 * 86400000L);
+    int a = 1;
   }
 
-
-  public static void Jieqi() throws ArrayException
-  {
+  public static void Jieqi() throws ArrayException {
     Calendar calendar = Calendar.getInstance();
-    calendar.set(2022, Calendar.APRIL,5);
+    calendar.set(2022, Calendar.APRIL, 5);
     long time = calendar.getTimeInMillis();
 
-   String str = FindSolarTerm.daySolarTerm(time);
+    String str = FindSolarTerm.daySolarTerm(time);
     System.out.println(str);
   }
-
 
   public static void Test1(String[] args) throws ArrayException, ValueException {
 
@@ -46,61 +48,64 @@ public class TestItem
     System.out.println("--------------------------------------");
 
     Calendar calendar = Calendar.getInstance();
-    calendar.set(2022, Calendar.JUNE,1);
+    calendar.set(2022, Calendar.JUNE, 1);
     long time = calendar.getTimeInMillis();
 
-    //删除
+    // 删除
     DeleteSth.deleteCommemorationDays_festival(29);
-    //创建6.1号
-    CreateSth.createCommemorationDay(time,"小明节");
+    // 创建6.1号
+    CreateSth.createCommemorationDay(time, "小明节");
 
-    //创建1号
-    CreateSth.createCommemorationDay(time,"测试1号",(short) 2);
-    //创建2号
-    CreateSth.createCommemorationDay((time+86400000L),"测试2号",(short) 2);
-    CreateSth.createCommemorationDay((time+86400000L),"测试2-1号",(short) 2);
-    CreateSth.createCommemorationDay((time+86400000L),"测试2-2号",(short) 2);
-    CreateSth.createCommemorationDay((time+86400000L),"测试2-3号",(short) 2);
-    CreateSth.createCommemorationDay((time+86400000L),"测试2-4号",(short) 2);
-    CreateSth.createCommemorationDay((time+2*86400000L),"测试3-1号",(short) 2);
-    CreateSth.createCommemorationDay((time+86400000L),"测试2-5号",(short) 2);
-    CreateSth.createCommemorationDay((time+15*86400000L),"测试16-1号",(short) 2);
-    CreateSth.createCommemorationDay((time+8*86400000L),"测试9-1号",(short) 2);
-    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-1号",(short) 2);
-    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-2号",(short) 2);
-    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-3号",(short) 2);
-    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-4号",(short) 1);
-    CreateSth.createCommemorationDay((time+14*86400000L),"测试15-5号",(short) 1);
-
+    // 创建1号
+    CreateSth.createCommemorationDay(time, "测试1号", (short) 2);
+    // 创建2号
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2号", (short) 2);
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2-1号", (short) 2);
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2-2号", (short) 2);
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2-3号", (short) 2);
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2-4号", (short) 2);
+    CreateSth.createCommemorationDay((time + 2 * 86400000L), "测试3-1号", (short) 2);
+    CreateSth.createCommemorationDay((time + 86400000L), "测试2-5号", (short) 2);
+    CreateSth.createCommemorationDay((time + 15 * 86400000L), "测试16-1号", (short) 2);
+    CreateSth.createCommemorationDay((time + 8 * 86400000L), "测试9-1号", (short) 2);
+    CreateSth.createCommemorationDay((time + 14 * 86400000L), "测试15-1号", (short) 2);
+    CreateSth.createCommemorationDay((time + 14 * 86400000L), "测试15-2号", (short) 2);
+    CreateSth.createCommemorationDay((time + 14 * 86400000L), "测试15-3号", (short) 2);
+    CreateSth.createCommemorationDay((time + 14 * 86400000L), "测试15-4号", (short) 1);
+    CreateSth.createCommemorationDay((time + 14 * 86400000L), "测试15-5号", (short) 1);
 
     for (CommemorationDay commemorationDay : arrayList) {
-      System.out.println(arrayList.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
+      System.out.println(
+          arrayList.indexOf(commemorationDay) + " " + commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
     System.out.println("-----------------------------");
 
-    ArrayList<CommemorationDay> arrayList1 = FindDaySth.findCommemorationDays_festival(time + 14*86400000L);
+    ArrayList<CommemorationDay> arrayList1 = FindDaySth.findCommemorationDays_festival(time + 14 * 86400000L);
 
     for (CommemorationDay commemorationDay : arrayList1) {
-      System.out.println(arrayList1.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
+      System.out.println(
+          arrayList1.indexOf(commemorationDay) + " " + commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
     System.out.println("-----------------------------");
 
     DeleteSth.deleteCommemorationDays_festival(69);
-    DeleteSth.deleteCommemorationDays_festival(66,time + 14*86400000L,(short) 2);
-    DeleteSth.deleteCommemorationDays_festival(68,time + 14*86400000L,(short) 1);
+    DeleteSth.deleteCommemorationDays_festival(66, time + 14 * 86400000L, (short) 2);
+    DeleteSth.deleteCommemorationDays_festival(68, time + 14 * 86400000L, (short) 1);
 
     for (CommemorationDay commemorationDay : FestivalData.commemorationDays_festival) {
-      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
+      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay) + " "
+          + commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
     System.out.println("-----------------------------");
 
-    DeleteSth.deleteCommemorationDays_festival(61,time + 2*86400000L);
+    DeleteSth.deleteCommemorationDays_festival(61, time + 2 * 86400000L);
 
     for (CommemorationDay commemorationDay : FestivalData.commemorationDays_festival) {
-      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay)+" "+commemorationDay.getId() + " " + commemorationDay.getContent());
+      System.out.println(FestivalData.commemorationDays_festival.indexOf(commemorationDay) + " "
+          + commemorationDay.getId() + " " + commemorationDay.getContent());
     }
 
   }

@@ -1,85 +1,78 @@
 package team.Data;
+
 import team.Item.ItemSchedule.Schedule;
 import java.util.ArrayList;
 
-public class ScheduleData
-{
-    public static final short[] WEEK = {7,1,2,3,4,5,6};
+public class ScheduleData {
+  public static final short[] WEEK = { 7, 1, 2, 3, 4, 5, 6 };
 
-    // len长度的维护模块
-    // 开始
+  // len长度的维护模块
+  // 开始
 
-    //存储至今为止总共创建了多少个日程,并作为日程的身份识别的唯一id
-    private static int len = 0;
+  // 存储至今为止总共创建了多少个日程,并作为日程的身份识别的唯一id
+  private static int len = 0;
 
-    //用于获取len
-    public static int getLen() {
-        return len;
-    }
+  // 用于获取len
+  public static int getLen() {
+    return len;
+  }
 
-    //用于更新len
-    public static void addLenOne() {
-        ScheduleData.len += 1;
-    }
+  // 用于更新len
+  public static void addLenOne() {
+    ScheduleData.len += 1;
+  }
 
-    // len长度的维护模块
-    // 结束
+  // len长度的维护模块
+  // 结束
 
+  // 无重复日程队列的调用函数
+  // 开始
 
-    // 无重复日程队列的调用函数
-    // 开始
+  // 创建无重复的日程的ArrayList
+  private static ArrayList<Schedule> scheduleArrayNotRepeat = new ArrayList<Schedule>();
 
-    //创建无重复的日程的ArrayList
-    private static ArrayList<Schedule> scheduleArrayNotRepeat = new ArrayList<Schedule>();
+  // 用于获取无重复的日程的ArrayList
+  public static ArrayList<Schedule> getScheduleArrayNotRepeat() {
+    return scheduleArrayNotRepeat;
+  }
 
-    //用于获取无重复的日程的ArrayList
-    public static ArrayList<Schedule> getScheduleArrayNotRepeat()
-    {
-        return scheduleArrayNotRepeat;
-    }
+  // 返回scheduleArrayNotRepeat的index号元素
+  public static Schedule getIndexSchedule(int index) {
+    return scheduleArrayNotRepeat.get(index);
+  }
 
-    //返回scheduleArrayNotRepeat的index号元素
-    public static Schedule getIndexSchedule(int index)
-    {
-        return scheduleArrayNotRepeat.get(index);
-    }
+  // 将newSchedule插入到scheduleArrayNotRepeat的index位置
+  public static void addIndexScheduleArrayNotRepeat(int index, Schedule newSchedule) {
+    ScheduleData.scheduleArrayNotRepeat.add(index, newSchedule);
+    System.out.println("插入notRepeat");
+  }
 
-    //将newSchedule插入到scheduleArrayNotRepeat的index位置
-    public static void addIndexScheduleArrayNotRepeat(int index,Schedule newSchedule)
-    {
-        ScheduleData.scheduleArrayNotRepeat.add(index,newSchedule);
-    }
+  // 无重复日程队列的调用函数
+  // 结束
 
-    // 无重复日程队列的调用函数
-    // 结束
+  // 重复日程队列的调用函数
+  // 开始
 
+  // 创建重复的日程的ArrayList
+  private static ArrayList<Schedule> scheduleArrayRepeat = new ArrayList<Schedule>();
 
-    // 重复日程队列的调用函数
-    // 开始
+  // 用于获取无重复的日程的ArrayList
+  public static ArrayList<Schedule> getScheduleArrayRepeat() {
+    return scheduleArrayRepeat;
+  }
 
-    //创建重复的日程的ArrayList
-    private static ArrayList<Schedule> scheduleArrayRepeat = new ArrayList<Schedule>();
+  // 返回scheduleArrayRepeat的index号元素
+  public static Schedule getIndexRepeatSchedule(int index) {
+    return scheduleArrayRepeat.get(index);
+  }
 
-    //用于获取无重复的日程的ArrayList
-    public static ArrayList<Schedule> getScheduleArrayRepeat()
-    {
-        return scheduleArrayRepeat;
-    }
+  // 将newSchedule插入到scheduleArrayRepeat的index位置
+  public static void addIndexScheduleArrayRepeat(int index, Schedule newSchedule) {
+    ScheduleData.scheduleArrayRepeat.add(index, newSchedule);
+    System.out.println("插入Repeat");
+  }
 
-    //返回scheduleArrayRepeat的index号元素
-    public static Schedule getIndexRepeatSchedule(int index)
-    {
-        return scheduleArrayRepeat.get(index);
-    }
-
-    //将newSchedule插入到scheduleArrayRepeat的index位置
-    public static void addIndexScheduleArrayRepeat(int index,Schedule newSchedule)
-    {
-        ScheduleData.scheduleArrayRepeat.add(index,newSchedule);
-    }
-
-    // 重复日程队列的调用函数
-    // 结束
-
+  // 重复日程队列的调用函数
+  // 结束
 
 }

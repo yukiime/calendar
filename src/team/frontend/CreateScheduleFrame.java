@@ -6,29 +6,29 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
-import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.CreateSthRepeat;
 import team.Item.ItemsWork.FindDaySth;
 import team.frontend.components.Sider;
 import team.utils.*;
 
 class HandleClickSubmitBtn implements ActionListener {
-  private JFrame frame;
+  private CreateScheduleFrame frame;
 
   /**
    * 
    * @param frame 窗口的引用，用于关闭窗口
    */
-  HandleClickSubmitBtn(JFrame frame) {
+  HandleClickSubmitBtn(CreateScheduleFrame frame) {
     this.frame = frame;
+    // System.out.println(this.frame.getA());
   }
 
   public void actionPerformed(ActionEvent e) {
-    String content = CreateScheduleFrame.inputContent.getContent();
-    long timeStamp = CreateScheduleFrame.timeStamp;
-    boolean isRepeat = CreateScheduleFrame.checkRepeat.isSelected();
-    short repeatType = Short.valueOf(CreateScheduleFrame.inputRepeatType.getContent());
-    int duration = Integer.valueOf(CreateScheduleFrame.inputDuration.getContent());
+    String content = this.frame.getContent();
+    long timeStamp = this.frame.getTimeStamp();
+    boolean isRepeat = this.frame.getIsRepeat();
+    short repeatType = this.frame.getRepeatType();
+    int duration = this.frame.getDuration();
 
     try {
       // TODO: 根据重复类型使用对应的函数
@@ -39,28 +39,57 @@ class HandleClickSubmitBtn implements ActionListener {
       System.err.println(err.getMessage());
     } finally {
       this.frame.dispose();
-      // CreateScheduleFrame.inputContent.dispose();
     }
   }
 }
 
 public class CreateScheduleFrame extends JFrame {
-  static long timeStamp;
+  private long timeStamp;
 
   // 日程内容控件
-  static NewInput inputContent = new NewInput("输入内容");
+  private NewInput inputContent = new NewInput("输入内容");
 
   // 设置重复状态控件
-  static JCheckBox checkRepeat = new JCheckBox("是否重复", false);
+  private JCheckBox checkRepeat = new JCheckBox("是否重复", false);
 
   // 设置重复类型控件
-  static NewInput inputRepeatType = new NewInput("输入重复类型");
+  private NewInput inputRepeatType = new NewInput("输入重复类型");
 
-  static NewInput inputDuration = new NewInput("输入重复天数");
+  private NewInput inputDuration = new NewInput("输入重复天数");
 
   // 提交按钮控件
   private JButton submitBtn = new JButton("提交");
   private JPanel panButtons = new JPanel();
+
+  public String getContent() {
+    return this.inputContent.getContent();
+  }
+
+  public long getTimeStamp() {
+    return this.timeStamp;
+  }
+
+  public boolean getIsRepeat() {
+    return this.checkRepeat.isSelected();
+  }
+
+  public short getRepeatType() {
+    try {
+      return Short.valueOf(this.inputRepeatType.getContent());
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      return -1; // 转换失败
+    }
+  }
+
+  public int getDuration() {
+    try {
+      return Integer.valueOf(this.inputDuration.getContent());
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      return -1;
+    }
+  }
 
   public CreateScheduleFrame() {
     timeStamp = DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate);

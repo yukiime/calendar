@@ -10,8 +10,9 @@ public class ModifyFrame extends JFrame {
 
   public ModifyFrame() {
     this.add(new NewLabel("h1", "修改日程"));
-    this.setSize(300, 300);
-    this.setLayout(new FlowLayout());
+    this.setSize(300, 250);
+    this.setLayout(new GridLayout(7, 1, 5, 5));
+
     this.setVisible(true);
     StaticEvent.centerWindow(this);
   }

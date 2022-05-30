@@ -7,10 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import team.Item.ItemSchedule.CommemorationDay;
+import team.Item.ItemSchedule.Festival;
+import team.Item.ItemSchedule.Note;
 import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
-import team.frontend.EntranceFrame;
 import team.frontend.ModifyFrame;
 import team.utils.NewLabel;
 
@@ -36,26 +38,71 @@ class ms implements MouseListener {
 
 }
 
-class ScheduleWrapper extends JPanel {
-  private NewLabel contentLabel;
-  private String content;
+abstract class ItemWrapper<T> extends JPanel {
+  protected NewLabel contentLabel;
+  protected String content;
+  protected T instance;
 
-  public ScheduleWrapper(String content) {
+  ItemWrapper(String content) {
     this.content = content;
-
-    this.contentLabel = new NewLabel("text", content);
+    this.contentLabel = new NewLabel(this.content);
     this.add(this.contentLabel);
     this.add(this.contentLabel);
     this.setSize(170, 50);
     this.addMouseListener(new ms());
-    // this.add(new JButton("修改"));
     this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
   }
+
+  abstract void setStyle();
 
   public String getContent() {
     return this.content;
   }
 
+  public T getInstance() {
+    return instance;
+  }
+}
+
+class ScheduleWrapper extends ItemWrapper<Schedule> {
+  public ScheduleWrapper(Schedule ref) {
+    super(ref.getContent());
+    this.instance = ref;
+  }
+
+  public void setStyle() {
+  }
+}
+
+class NoteWrapper extends ItemWrapper<Note> {
+  public NoteWrapper(Note ref) {
+    super(ref.getContent());
+    this.instance = ref;
+  }
+
+  public void setStyle() {
+  }
+
+}
+
+class FestivalWrapper extends ItemWrapper<Festival> {
+  public FestivalWrapper(Festival ref) {
+    super(ref.getContent());
+    this.instance = ref;
+  }
+
+  public void setStyle() {
+  }
+}
+
+class CommemorationDayWrapper extends ItemWrapper<CommemorationDay> {
+  public CommemorationDayWrapper(CommemorationDay ref) {
+    super(ref.getContent());
+    this.instance = ref;
+  }
+
+  public void setStyle() {
+  }
 }
 
 public class ScheduleList extends JPanel {
@@ -76,7 +123,7 @@ public class ScheduleList extends JPanel {
     }
     scheduleListData.clear();
     for (Schedule item : FindDaySth.findAllSchedule(timeStamp)) {
-      scheduleListData.add(new ScheduleWrapper(item.getContent()));
+      scheduleListData.add(new ScheduleWrapper(item));
     }
     for (ScheduleWrapper item : scheduleListData) {
       this.add(item);
