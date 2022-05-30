@@ -12,12 +12,25 @@ import java.util.Calendar;
  * 用途:
  * 个人测试使用
  */
-public class TestItem {
-  public static void main(String[] args) {
-    for (int i = 0; i < 10000; i++) {
-      System.out.println(FindDaySth.todayFortune());
-    }
+public class TestItem
+{
+
+  public static void main(String[] args) throws ArrayException
+  {
+    Jieqi();
   }
+
+
+  public static void Jieqi() throws ArrayException
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2022, Calendar.APRIL,5);
+    long time = calendar.getTimeInMillis();
+
+   String str = FindSolarTerm.daySolarTerm(time);
+    System.out.println(str);
+  }
+
 
   public static void Test1(String[] args) throws ArrayException, ValueException {
 
