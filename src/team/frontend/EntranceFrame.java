@@ -3,6 +3,7 @@ package team.frontend;
 import javax.swing.*;
 
 import team.frontend.components.*;
+import team.utils.DateCalculator;
 import team.utils.StaticEvent;
 
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.util.*;
 
 public class EntranceFrame extends JFrame {
 
-  public static Calendar date = Calendar.getInstance();
   public static TopMenu tb = new TopMenu();
   public static Sider sd = new Sider(2022, 5, 24, "fuck");
   public static Header header;
@@ -19,7 +19,7 @@ public class EntranceFrame extends JFrame {
 
   public EntranceFrame(String title) {
     super(title);
-    date.set(Context.year, Context.month - 1, 1);
+    Calendar date = DateCalculator.getCalendarInstance(Context.year, Context.month, 1);
     header = new Header(date);
     cg = new CalendarGrid(date);
 

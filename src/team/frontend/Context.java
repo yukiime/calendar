@@ -1,13 +1,15 @@
 package team.frontend;
 
 import java.awt.*;
+import java.util.Calendar;
 
 public class Context {
+  public static Calendar date = Calendar.getInstance();
   public static int year = 2022;
   public static int month = 5;
   public static int solarDate = 2;
   public static int MILLISECOND_DAY = 86400000;
-
+  // TODO: improve visiblity
   public static Color[] goldColors = {
       new Color(255, 251, 230),
       new Color(255, 241, 184),
@@ -49,4 +51,12 @@ public class Context {
     三十一
   }
 
+  public static void toggleFullDateInContext(int year, int month, int solarDate) {
+    Context.year = year == -1 ? Context.year : year;
+    Context.month = month == -1 ? Context.month : month;
+    Context.solarDate = solarDate;
+    date.set(Context.year, Context.month - 1, solarDate);
+    EntranceFrame.cg.renderBox(date);
+    System.out.println(Context.year + " " + Context.month + " " + Context.solarDate);
+  }
 }

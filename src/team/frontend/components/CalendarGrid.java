@@ -13,7 +13,7 @@ import team.utils.*;
 
 class DayBoxMS implements MouseListener {
 
-  public void mouseReleased(MouseEvent e) {
+  public void mousePressed(MouseEvent e) {
     DayBox obj = (DayBox) e.getSource();
 
     CalendarGrid.dayBoxGroup[Context.selectedNum].release(); // 释放上次的日期格子
@@ -24,7 +24,7 @@ class DayBoxMS implements MouseListener {
     EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum(), obj.getLunarDateText());
   }
 
-  public void mousePressed(java.awt.event.MouseEvent e) {
+  public void mouseReleased(java.awt.event.MouseEvent e) {
   }
 
   public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -44,6 +44,7 @@ class DayBox extends JPanel {
   private int month; // 1 月 month = 1
   private int solarDateNum; // 阳历 19 号 solarDate = 19
   private String lunarDateText;
+  private Color defaultBackgroundColor;
 
   DayBox(int solarDateNum, int month, int year, int index) {
     this.index = index;
@@ -52,9 +53,17 @@ class DayBox extends JPanel {
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
     this.addMouseListener(new DayBoxMS());
-    this.add(new NewLabel("h4", String.valueOf(solarDateNum)));
-    this.add(new NewLabel(lunarDateText));
-    this.setBackground(Context.goldColors[2]);
+    if (month != Context.month) {
+      this.defaultBackgroundColor = Context.goldColors[1];
+      this.add(new NewLabel("h4 weak", String.valueOf(solarDateNum)));
+      this.add(new NewLabel("text weak", lunarDateText));
+    } else {
+      this.defaultBackgroundColor = Context.goldColors[2];
+      this.add(new NewLabel("h4", String.valueOf(solarDateNum)));
+      this.add(new NewLabel(lunarDateText));
+    }
+
+    this.setBackground(defaultBackgroundColor);
     this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
   }
 
@@ -87,7 +96,7 @@ class DayBox extends JPanel {
   }
 
   public void release() {
-    this.setBackground(Context.goldColors[2]);
+    this.setBackground(this.defaultBackgroundColor);
   }
 
   /**
@@ -120,6 +129,13 @@ public class CalendarGrid extends JPanel {
    * @param date
    */
   public void renderBox(Calendar date) {
+    try {
+      for (DayBox item : dayBoxGroup) {
+        this.remove(item);
+      }
+    } catch (Exception e) {
+
+    }
     // 该月1号在日历表(每行从星期日数起)一行中的第几个
     int firstDay = date.get(Calendar.DAY_OF_WEEK) - 1;
 
@@ -148,6 +164,7 @@ public class CalendarGrid extends JPanel {
       dayBoxGroup[i] = new DayBox(i - dayOfMonth - firstDay + 1, month, year, i);
       this.add(dayBoxGroup[i]);
     }
+    this.updateUI();
   }
 
   public CalendarGrid(Calendar date) {
@@ -155,5 +172,6 @@ public class CalendarGrid extends JPanel {
     this.setLayout(new GridLayout(6, 7));
 
     this.renderBox(date);
+
   }
 }

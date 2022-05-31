@@ -25,4 +25,10 @@ public class DateCalculator {
     date.set(Calendar.MILLISECOND, 0);
     return date.getTimeInMillis();
   }
+
+  public static Calendar getCalendarInstance(int year, int month, int solarDate) {
+    Calendar date = Calendar.getInstance();
+    date.set(year, month - 1, solarDate);
+    return date;
+  }
 }
