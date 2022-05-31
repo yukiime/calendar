@@ -15,5 +15,6 @@ public class ModifyFrame extends JFrame {
 
     this.setVisible(true);
     StaticEvent.centerWindow(this);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }
 }

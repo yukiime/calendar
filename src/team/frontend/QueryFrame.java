@@ -109,6 +109,7 @@ public class QueryFrame extends JFrame {
     this.add(rp);
 
     StaticEvent.centerWindow(this);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
   }
 

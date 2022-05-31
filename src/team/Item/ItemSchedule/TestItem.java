@@ -4,6 +4,7 @@ import team.Data.FestivalData;
 import team.Item.ItemsWork.*;
 import team.Projectexception.ArrayException;
 import team.Projectexception.ValueException;
+import team.utils.FindSolarTerm;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,26 +14,6 @@ import java.util.Calendar;
  * 个人测试使用
  */
 public class TestItem {
-
-  public static void main(String[] args) throws ArrayException {
-    Jieqi();
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(2022, Calendar.JUNE, 1);
-    long time = calendar.getTimeInMillis();
-    // ArrayList<CommemorationDay> arrayList1 =
-    // FindDaySth.findCommemorationDays_festival(1654012800000L);
-    ArrayList<CommemorationDay> arrayList1 = FindDaySth.findCommemorationDays_festival(time + 14 * 86400000L);
-    int a = 1;
-  }
-
-  public static void Jieqi() throws ArrayException {
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(2022, Calendar.APRIL, 5);
-    long time = calendar.getTimeInMillis();
-
-    String str = FindSolarTerm.daySolarTerm(time);
-    System.out.println(str);
-  }
 
   public static void Test1(String[] args) throws ArrayException, ValueException {
 

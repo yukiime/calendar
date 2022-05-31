@@ -12,7 +12,7 @@ import java.util.*;
 public class EntranceFrame extends JFrame {
 
   public static TopMenu tb = new TopMenu();
-  public static Sider sd = new Sider(2022, 5, 24, "fuck");
+  public static Sider sd = new Sider(Context.year, Context.month, Context.solarDate);
   public static Header header;
   public static JPanel main = new JPanel();
   public static CalendarGrid cg;
@@ -34,6 +34,7 @@ public class EntranceFrame extends JFrame {
     this.add("East", sd);
     sd.setPreferredSize(new Dimension(200, 425));
     StaticEvent.centerWindow(this);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
 }

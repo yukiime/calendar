@@ -20,7 +20,6 @@ class HandleClickSubmitBtn implements ActionListener {
    */
   HandleClickSubmitBtn(CreateScheduleFrame frame) {
     this.frame = frame;
-    // System.out.println(this.frame.getA());
   }
 
   public void actionPerformed(ActionEvent e) {

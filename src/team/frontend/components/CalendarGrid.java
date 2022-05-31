@@ -21,7 +21,7 @@ class DayBoxMS implements MouseListener {
     Context.selectedNum = obj.getIndex(); // 储存当前选中格子的索引
     Context.solarDate = obj.getSolarDateNum();
 
-    EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum(), obj.getLunarDateText());
+    EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum());
   }
 
   public void mouseReleased(java.awt.event.MouseEvent e) {
@@ -43,25 +43,37 @@ class DayBox extends JPanel {
   private int year;
   private int month; // 1 月 month = 1
   private int solarDateNum; // 阳历 19 号 solarDate = 19
-  private String lunarDateText;
+  private String lunarDateText; // 阴历日文本
+  private String lunarMonthText; // 阴历月文本
   private Color defaultBackgroundColor;
 
   DayBox(int solarDateNum, int month, int year, int index) {
+
     this.index = index;
     this.year = year;
     this.month = month;
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
     this.addMouseListener(new DayBoxMS());
+
+    // 非当前月区分渲染
+    String curMonthState = "";
     if (month != Context.month) {
+      curMonthState = " weak";
       this.defaultBackgroundColor = Context.goldColors[1];
-      this.add(new NewLabel("h4 weak", String.valueOf(solarDateNum)));
-      this.add(new NewLabel("text weak", lunarDateText));
     } else {
       this.defaultBackgroundColor = Context.goldColors[2];
-      this.add(new NewLabel("h4", String.valueOf(solarDateNum)));
-      this.add(new NewLabel(lunarDateText));
     }
+
+    // 阳历日期
+    this.add(new NewLabel("h4" + curMonthState, String.valueOf(solarDateNum)));
+
+    // 节气和农历
+    String jieqi = FindSolarTerm.daySolarTerm(year, month, solarDateNum);
+    if (jieqi != null)
+      this.add(new NewLabel("text" + curMonthState, jieqi));
+    else
+      this.add(new NewLabel("text" + curMonthState, lunarDateText));
 
     this.setBackground(defaultBackgroundColor);
     this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -87,6 +99,10 @@ class DayBox extends JPanel {
     return this.lunarDateText;
   }
 
+  public String getLunarMonthText() {
+    return this.lunarMonthText;
+  }
+
   public int getIndex() {
     return this.index;
   }
@@ -108,8 +124,14 @@ class DayBox extends JPanel {
    */
   public void setDate(int solarDateNum) {
 
+    // 阴历日
     int lunarDateNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[2];
+    // 阴历月
     int lunarMonthNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[1];
+
+    this.lunarMonthText = Context.MonthChar.values()[lunarMonthNum - 1].toString();
+
+    // 阴历每月第一天不渲染 “初一”，渲染 “ * 月”
     if (lunarDateNum == 1)
       this.lunarDateText = Context.MonthChar.values()[lunarMonthNum - 1].toString();
     else

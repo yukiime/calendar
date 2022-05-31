@@ -9,7 +9,6 @@ import java.awt.event.*;
 
 import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Festival;
-import team.Item.ItemSchedule.Note;
 import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
@@ -74,16 +73,18 @@ class ScheduleWrapper extends ItemWrapper<Schedule> {
   }
 }
 
-class NoteWrapper extends ItemWrapper<Note> {
-  public NoteWrapper(Note ref) {
-    super(ref.getContent());
-    this.instance = ref;
-  }
-
-  public void setStyle() {
-  }
-
-}
+/*
+ * class NoteWrapper extends ItemWrapper<Note> {
+ * public NoteWrapper(Note ref) {
+ * super(ref.getContent());
+ * this.instance = ref;
+ * }
+ * 
+ * public void setStyle() {
+ * }
+ * 
+ * }
+ */
 
 class FestivalWrapper extends ItemWrapper<Festival> {
   public FestivalWrapper(Festival ref) {

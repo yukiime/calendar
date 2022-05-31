@@ -9,7 +9,9 @@ public class Context {
   public static int month = 5;
   public static int solarDate = 2;
   public static int MILLISECOND_DAY = 86400000;
+  // TODO: initialize data
   // TODO: improve visiblity
+
   public static Color[] goldColors = {
       new Color(255, 251, 230),
       new Color(255, 241, 184),
