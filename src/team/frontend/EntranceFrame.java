@@ -14,6 +14,7 @@ public class EntranceFrame extends JFrame {
   public static TopMenu tb = new TopMenu();
   public static Sider sd = new Sider(2022, 5, 24, "fuck");
   public static Header header;
+  public static JPanel main = new JPanel();
   public static CalendarGrid cg;
 
   public EntranceFrame(String title) {
@@ -26,8 +27,12 @@ public class EntranceFrame extends JFrame {
     this.setJMenuBar(tb);
     this.setLayout(new BorderLayout());
     this.add("North", header);
-    this.add("Center", cg);
+    this.add("Center", main);
+    main.setLayout(new BorderLayout());
+    main.add("North", new DayOfWeekBar());
+    main.add("Center", cg);
     this.add("East", sd);
+    sd.setPreferredSize(new Dimension(200, 425));
     StaticEvent.centerWindow(this);
   }
 

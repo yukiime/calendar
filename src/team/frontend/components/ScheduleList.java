@@ -48,7 +48,7 @@ abstract class ItemWrapper<T> extends JPanel {
     this.contentLabel = new NewLabel(this.content);
     this.add(this.contentLabel);
     this.add(this.contentLabel);
-    this.setSize(170, 50);
+    // this.setSize(170, 50);
     this.addMouseListener(new ms());
     this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
   }

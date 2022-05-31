@@ -19,6 +19,11 @@ public class Context {
 
   public static int selectedNum = 0; // 选中第几个格子，与日期无关
 
+  public static enum DayOfWeek {
+    星期日, 星期一, 星期二, 星期三,
+    星期四, 星期五, 星期六,
+  }
+
   public static enum MonthChar {
     正月, 二月, 三月, 四月,
     五月, 六月, 七月, 八月,

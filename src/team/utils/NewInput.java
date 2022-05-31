@@ -9,7 +9,7 @@ public class NewInput extends JPanel {
   private JTextField input = new JTextField(12);
 
   public NewInput(String title) {
-    this.title = new NewLabel("h2", title + ": ");
+    this.title = new NewLabel("h4", title + ": ");
     this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     this.add(this.title);
     this.add(input);

@@ -60,7 +60,7 @@ class Lunar2SolarPane extends JPanel {
 
   Lunar2SolarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new NewLabel("h3", "阴历日期："));
+    this.add(new NewLabel("h4", "阴历日期："));
     this.add(lunarInput);
     btn.addActionListener(new HandleParseLunar2Solar());
     this.add(btn);
@@ -73,7 +73,7 @@ class Solar2LunarPane extends JPanel {
 
   Solar2LunarPane() {
     this.setLayout(new FlowLayout());
-    this.add(new NewLabel("h3", "阳历日期："));
+    this.add(new NewLabel("h4", "阳历日期："));
     this.add(solarInput);
     btn.addActionListener(new HandleParseSolar2Lunar());
     this.add(btn);
@@ -82,10 +82,10 @@ class Solar2LunarPane extends JPanel {
 }
 
 class ResultPane extends JPanel {
-  private NewLabel result = new NewLabel("h2", "等待输入...");
+  private NewLabel result = new NewLabel("h4", "等待输入...");
 
   ResultPane() {
-    this.add(new NewLabel("h3", "结果："));
+    this.add(new NewLabel("结果："));
     this.add(result);
   }
 

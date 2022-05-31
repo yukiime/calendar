@@ -6,6 +6,7 @@ import java.util.Calendar;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.awt.*;
 
 import team.Item.ItemsWork.FindDaySth;
 import team.frontend.Context;
@@ -35,17 +36,17 @@ public class Sider extends JPanel {
   public static ArrayList<ScheduleWrapper> scheduleListData = new ArrayList<ScheduleWrapper>();
 
   public Sider() {
-    this.setSize(300, 425);
-    this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    this.setLayout(new FlowLayout(FlowLayout.LEFT));
   }
 
   public Sider(int year, int month, int solarDate, String lunarDateText) {
     this();
     // this.setLayout()
     this.setBackground(Context.goldColors[3]);
+    this.add(solarDateLabel);
     this.add(yearLabel);
     this.add(monthLabel);
-    this.add(solarDateLabel);
     this.add(lunarDateTextLabel);
     this.add(createBtn);
     this.add(scheduleList);
@@ -64,10 +65,10 @@ public class Sider extends JPanel {
    * @param lunarDateText 阴历日期
    */
   public void renderSider(int year, int month, int solarDate, String lunarDateText) {
-    yearLabel.setContent("h2", String.valueOf(year));
-    monthLabel.setContent("h2", String.valueOf(month));
-    solarDateLabel.setContent("h2", String.valueOf(solarDate));
-    lunarDateTextLabel.setContent("h2", String.valueOf(lunarDateText));
+    yearLabel.setContent("h4", String.valueOf(year) + "年");
+    monthLabel.setContent("h3", String.valueOf(month) + "月");
+    solarDateLabel.setContent("h1", String.valueOf(solarDate));
+    lunarDateTextLabel.setContent("text", String.valueOf(lunarDateText));
     long timeStamp = DateCalculator.get0clockTimeStamp(year, month, solarDate);
 
     try {

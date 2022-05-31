@@ -26,15 +26,17 @@ public class NewLabel extends JLabel {
 
   public void setStyle(String type) {
     if (type.equals("h1"))
-      setFont(new Font("黑体", Font.BOLD, 16));
+      setFont(new Font("黑体", Font.BOLD, 38));
     else if (type.equals("h2"))
-      setFont(new Font("黑体", Font.BOLD, 14));
+      setFont(new Font("黑体", Font.BOLD, 30));
     else if (type.equals("h3"))
-      setFont(new Font("黑体", Font.BOLD, 12));
+      setFont(new Font("黑体", Font.BOLD, 24));
+    else if (type.equals("h4"))
+      setFont(new Font("黑体", Font.BOLD, 20));
     else if (type.equals("text"))
-      setFont(new Font("黑体", Font.PLAIN, 12));
+      setFont(new Font("黑体", Font.PLAIN, 14));
     else
-      setFont(new Font("黑体", Font.PLAIN, 12));
+      setFont(new Font("黑体", Font.PLAIN, 14));
   }
 
 }

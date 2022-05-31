@@ -9,7 +9,7 @@ import team.utils.StaticEvent;
 public class ModifyFrame extends JFrame {
 
   public ModifyFrame() {
-    this.add(new NewLabel("h1", "修改日程"));
+    this.add(new NewLabel("h4", "修改日程"));
     this.setSize(300, 250);
     this.setLayout(new GridLayout(7, 1, 5, 5));
 

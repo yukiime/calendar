@@ -101,14 +101,14 @@ public class CreateScheduleFrame extends JFrame {
     StaticEvent.centerWindow(this);
 
     // 渲染当前选中日期
-    this.add(new NewLabel("h1", Context.year + "年 " + Context.month + "月 " + Context.solarDate + "日"));
+    this.add(new NewLabel("h4", Context.year + "年 " + Context.month + "月 " + Context.solarDate + "日"));
     // 渲染日程内容输入框
     this.add(inputContent);
     // 渲染设置重复状态
     this.add(checkRepeat);
     // 渲染输入重复类型套件
     this.add(inputRepeatType);
-    this.add(new NewLabel("h3", "提示：输入值为1..."));
+    this.add(new NewLabel("提示：输入值为1..."));
     // TODO: repeat prompt text
     // 渲染日程重复间隔
     this.add(inputDuration);

@@ -52,10 +52,10 @@ class DayBox extends JPanel {
     this.solarDateNum = solarDateNum;
     setDate(solarDateNum);
     this.addMouseListener(new DayBoxMS());
-    this.add(new NewLabel("h1", String.valueOf(solarDateNum)));
-    this.add(new NewLabel("h3", lunarDateText));
-    this.setSize(90, 80);
+    this.add(new NewLabel("h4", String.valueOf(solarDateNum)));
+    this.add(new NewLabel(lunarDateText));
     this.setBackground(Context.goldColors[2]);
+    this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
   }
 
   public void actionPerformed(ActionEvent e) {
@@ -68,7 +68,6 @@ class DayBox extends JPanel {
 
   public int getMonth() {
     return this.month;
-
   }
 
   public int getSolarDateNum() {
@@ -154,6 +153,7 @@ public class CalendarGrid extends JPanel {
   public CalendarGrid(Calendar date) {
     this.setSize(630, 425);
     this.setLayout(new GridLayout(6, 7));
+
     this.renderBox(date);
   }
 }
