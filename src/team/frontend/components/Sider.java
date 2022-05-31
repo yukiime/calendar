@@ -34,7 +34,7 @@ public class Sider extends JPanel {
   public static NewLabel todayFortuneLabel = new NewLabel();
   public static NewLabel todayMisfortuneLabel = new NewLabel();
   public static JButton createBtn = new JButton("+");
-  public static ScheduleList scheduleList = new ScheduleList(
+  public static ItemList itemList = new ItemList(
       DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
   public static ArrayList<ScheduleWrapper> scheduleListData = new ArrayList<ScheduleWrapper>();
 
@@ -45,7 +45,7 @@ public class Sider extends JPanel {
 
   public Sider(int year, int month, int solarDate) {
     this();
-    // this.setLayout()
+
     this.setBackground(Context.goldColors[3]);
     this.add(solarDateLabel);
     this.add(yearLabel);
@@ -55,7 +55,7 @@ public class Sider extends JPanel {
     this.add(todayFortuneLabel);
     this.add(todayMisfortuneLabel);
     this.add(createBtn);
-    this.add(scheduleList);
+    this.add(itemList);
 
     createBtn.addActionListener(new HandleClickCreateBtn());
     renderSider(year, month, solarDate);
@@ -81,16 +81,12 @@ public class Sider extends JPanel {
     lunarMonthTextLabel.setContent("text", String.valueOf(lunarMonthText));
     todayFortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[0]);
     todayMisfortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[1]);
+
     long timeStamp = DateCalculator.get0clockTimeStamp(year, month, solarDate);
 
     try {
 
-      // 5.26 测试
-      // TestItem.siderTest(timeStamp);
-      // 测试结束
-
-      System.out.println(timeStamp);
-      scheduleList.renderScheduleList(timeStamp);
+      itemList.renderList(timeStamp);
 
       System.out.println(FindDaySth.findAllSchedule(timeStamp).size());
       // TODO:

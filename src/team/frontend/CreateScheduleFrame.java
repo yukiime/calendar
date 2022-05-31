@@ -33,7 +33,7 @@ class HandleClickSubmitBtn implements ActionListener {
       // TODO: 根据重复类型使用对应的函数
       CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType);
       System.out.println(FindDaySth.findAllSchedule(timeStamp).size());
-      Sider.scheduleList.renderScheduleList(timeStamp);
+      Sider.itemList.renderList(timeStamp);
     } catch (Exception err) {
       System.err.println(err.getMessage());
     } finally {
