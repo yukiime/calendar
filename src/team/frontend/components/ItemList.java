@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import team.Item.ItemSchedule.CommemorationDay;
+import team.Item.ItemSchedule.Festival;
 import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
@@ -19,9 +20,10 @@ class ms<T1 extends ItemWrapper<T2>, T2> implements MouseListener {
 
     public void mouseReleased(MouseEvent e) {
         @SuppressWarnings("unchecked")
-        T1 sw = (T1) e.getSource();
-        System.out.println(sw.getContent());
-        ModifyFrame modifyFrame = new ModifyFrame();
+        T1 wrapper = (T1) e.getSource();
+        if (!(wrapper.getRef() instanceof Festival)) {
+            ModifyFrame modifyFrame = new ModifyFrame<T2>(wrapper.getRef());
+        }
     }
 
     public void mousePressed(java.awt.event.MouseEvent e) {
@@ -41,7 +43,7 @@ class ms<T1 extends ItemWrapper<T2>, T2> implements MouseListener {
 abstract class ItemWrapper<T> extends JPanel {
     protected NewLabel contentLabel;
     protected String content;
-    protected T instance;
+    protected T ref;
 
     ItemWrapper(String content) {
         this.content = content;
@@ -54,8 +56,8 @@ abstract class ItemWrapper<T> extends JPanel {
         return this.content;
     }
 
-    public T getInstance() {
-        return instance;
+    public T getRef() {
+        return ref;
     }
 
     /**
@@ -72,7 +74,7 @@ abstract class ItemWrapper<T> extends JPanel {
 class ScheduleWrapper extends ItemWrapper<Schedule> {
     public ScheduleWrapper(Schedule ref) {
         super(ref.getContent());
-        this.instance = ref;
+        this.ref = ref;
         this.addMouseListener(new ms<ScheduleWrapper, Schedule>());
         this.setStyle(ref.getOrder());
     }
@@ -81,7 +83,7 @@ class ScheduleWrapper extends ItemWrapper<Schedule> {
 class CommemorationDayWrapper extends ItemWrapper<CommemorationDay> {
     public CommemorationDayWrapper(CommemorationDay ref) {
         super(ref.getContent());
-        this.instance = ref;
+        this.ref = ref;
         this.addMouseListener(new ms<CommemorationDayWrapper, CommemorationDay>());
         this.setStyle(4);
     }
@@ -102,7 +104,7 @@ public class ItemList extends JPanel {
 
     public void renderList(long timeStamp) throws ValueException {
 
-        // System.out.println(timeStamp);
+        System.out.println("time in list " + timeStamp);
         // TODO: Genetic format
 
         // 节日纪念日
