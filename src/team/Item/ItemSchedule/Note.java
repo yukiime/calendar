@@ -1,11 +1,14 @@
 package team.Item.ItemSchedule;
+
+import java.io.Serializable;
+
 /**
  * 用途:
  * 作为节假日,纪念日,日程的父类
  * 包含：
  * 成员变量:id,创建日期,文本内容,是否重复
  */
-public class Note
+public class Note implements Serializable
 {
 
     protected int id; //每个日程拥有唯一的一个id,用于身份识别
