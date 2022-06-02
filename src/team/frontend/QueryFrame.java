@@ -3,6 +3,8 @@ package team.frontend;
 import javax.swing.*;
 
 import team.lunar_solar.LS;
+import team.utils.DateCalculator;
+import team.utils.NewInput;
 import team.utils.NewLabel;
 import team.utils.StaticEvent;
 
@@ -11,8 +13,7 @@ import java.awt.event.*;
 
 class HandleParseLunar2Solar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-        QueryFrame.rp.setResult("lun2sor");
-        String tmp = Lunar2SolarPane.lunarInput.getText();
+        String tmp = Lunar2SolarPanel.lunarInput.getContent();
         try {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month;
@@ -22,32 +23,35 @@ class HandleParseLunar2Solar implements ActionListener {
             } else {
                 month = Context.MonthChar.valueOf((tmp.split("闰")[1].split("月")[0]) + "月").ordinal() + 1;
             }
-            int monthDay = Context.LunarChar.valueOf(tmp.split("月")[1]).ordinal() + 1;
-            int res[] = LS.lunarToSolar(year, month, monthDay, isLeapMonth);
-            QueryFrame.rp.setResult("阳历 " + res[0] + "年 " + res[1] + "月 " + res[2] + "日");
+            int lunarDate = Context.LunarChar.valueOf(tmp.split("月")[1]).ordinal() + 1;
+            int res[] = LS.lunarToSolar(year, month, lunarDate, isLeapMonth);
+            QueryFrame.setDistance(DateCalculator.distanceOfToday(res[0], res[1], res[2]));
+            QueryFrame.rp.setResult("阳历 " + res[0] + "年" + res[1] + "月" + res[2] + "日 "
+                    + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(res[0], res[1], res[2]) - 1]);
+
         } catch (Exception err) {
             System.err.println("Exception: " + err.getMessage());
-            QueryFrame.rp.setResult("转换失败");
+            QueryFrame.rp.setResult("转换失败，格式错误");
         }
     }
 }
 
 class HandleParseSolar2Lunar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-        QueryFrame.rp.setResult("sor2lun");
-        String tmp = Solar2LunarPane.solarInput.getText();
+        String tmp = Solar2LunarPanel.solarInput.getContent();
         try {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month = Integer.parseInt(tmp.split("年")[1].split("月")[0]);
-            int monthDay = Integer.parseInt(tmp.split("年")[1].split("月")[1].split("日")[0]);
+            int solarDate = Integer.parseInt(tmp.split("年")[1].split("月")[1].split("日")[0]);
 
-            int[] res = LS.solarToLunar(year, month, monthDay);
+            int[] res = LS.solarToLunar(year, month, solarDate);
+            QueryFrame.setDistance(DateCalculator.distanceOfToday(year, month, solarDate));
             QueryFrame.rp
                     .setResult(
-                            "农历 " + res[0] + " 年 " + (res[3] == 1 ? "闰 " : " ")
+                            "农历 " + res[0] + "年" + (res[3] == 1 ? "闰 " : " ")
                                     + Context.MonthChar.values()[res[1] - 1].toString()
-                                    + " "
-                                    + Context.LunarChar.values()[res[2] - 1]);
+                                    + Context.LunarChar.values()[res[2] - 1] + " "
+                                    + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(year, month, solarDate)]);
         } catch (Exception err) {
             System.err.println("Exception: " + err.getMessage());
             QueryFrame.rp.setResult("转换失败");
@@ -55,30 +59,27 @@ class HandleParseSolar2Lunar implements ActionListener {
     }
 }
 
-class Lunar2SolarPane extends JPanel {
-    public static JTextField lunarInput = new JTextField(12);
+class Lunar2SolarPanel extends JPanel {
     public static JButton btn = new JButton("转换成阳历");
+    public static NewInput lunarInput = new NewInput("阴历日期");
 
-    Lunar2SolarPane() {
+    Lunar2SolarPanel() {
         this.setLayout(new FlowLayout());
-        this.add(new NewLabel("h4", "阴历日期："));
         this.add(lunarInput);
         btn.addActionListener(new HandleParseLunar2Solar());
         this.add(btn);
     }
 }
 
-class Solar2LunarPane extends JPanel {
-    public static JTextField solarInput = new JTextField(12);
+class Solar2LunarPanel extends JPanel {
     public static JButton btn = new JButton("转换成阴历");
+    public static NewInput solarInput = new NewInput("阳历日期");
 
-    Solar2LunarPane() {
+    Solar2LunarPanel() {
         this.setLayout(new FlowLayout());
-        this.add(new NewLabel("h4", "阳历日期："));
         this.add(solarInput);
         btn.addActionListener(new HandleParseSolar2Lunar());
         this.add(btn);
-
     }
 }
 
@@ -96,22 +97,33 @@ class ResultPane extends JPanel {
 }
 
 public class QueryFrame extends JFrame {
-    public static Solar2LunarPane s2lp = new Solar2LunarPane();
-    public static Lunar2SolarPane l2sp = new Lunar2SolarPane();
+    public static Solar2LunarPanel s2lp = new Solar2LunarPanel();
+    public static Lunar2SolarPanel l2sp = new Lunar2SolarPanel();
     public static ResultPane rp = new ResultPane();
+    public static NewLabel distance = new NewLabel();
 
     public QueryFrame() {
         super("日历转换");
-        setSize(400, 200);
+        setSize(400, 210);
 
         this.setLayout(new FlowLayout());
         this.add(s2lp);
         this.add(l2sp);
         this.add(rp);
+        this.add(distance);
 
         StaticEvent.centerWindow(this);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    static void setDistance(int num) {
+        if (num < 0)
+            distance.setContent("text danger", "这个日子已经过去 " + -num + " 天了");
+        else if (num > 0)
+            distance.setContent("text", "距离这天还有 " + num + " 天");
+        else
+            distance.setContent("text", "就是今天!");
     }
 
 }

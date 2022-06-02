@@ -16,9 +16,24 @@ public class DateCalculator {
         return lastMonthDate.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
-    public static long get0clockTimeStamp(int year, int month, int day) {
+    public static int dayOfWeek(int year, int month, int solarDate) {
         Calendar date = Calendar.getInstance();
-        date.set(year, month - 1, day);
+        date.set(year, month - 1, solarDate);
+        return date.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public static int distanceOfToday(int year, int month, int solarDate) {
+        Calendar today = Calendar.getInstance();
+        return (int) ((get0clockTimeStamp(year, month, solarDate)
+                - get0clockTimeStamp(today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1,
+                        today.get(Calendar.DATE)))
+                / 86400000L);
+
+    }
+
+    public static long get0clockTimeStamp(int year, int month, int solarDate) {
+        Calendar date = Calendar.getInstance();
+        date.set(year, month - 1, solarDate);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.HOUR_OF_DAY, 0);
@@ -31,4 +46,5 @@ public class DateCalculator {
         date.set(year, month - 1, solarDate);
         return date;
     }
+
 }

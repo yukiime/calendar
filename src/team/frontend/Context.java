@@ -6,8 +6,8 @@ import java.util.Calendar;
 public class Context {
     public static Calendar date = Calendar.getInstance();
     public static int year = 2022;
-    public static int month = 5;
-    public static int solarDate = 2;
+    public static int month = 6;
+    public static int solarDate = 5;
     public static int MILLISECOND_DAY = 86400000;
     // TODO: initialize data
     // TODO: improve visiblity
@@ -37,7 +37,7 @@ public class Context {
 
     public static int selectedNum = 0; // 选中第几个格子，与日期无关
 
-    public static enum DayOfWeek {
+    public static enum DayOfWeekChar {
         星期日, 星期一, 星期二, 星期三,
         星期四, 星期五, 星期六,
     }
