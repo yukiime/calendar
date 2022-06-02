@@ -6,8 +6,8 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
+import team.Item.ItemsWork.CreateSth;
 import team.Item.ItemsWork.CreateSthRepeat;
-import team.Item.ItemsWork.FindDaySth;
 import team.frontend.components.Sider;
 import team.utils.*;
 
@@ -31,10 +31,12 @@ class HandleClickSubmitBtn implements ActionListener {
         int duration = this.frame.getDuration();
 
         try {
-            if (repeatType != 4)
-                CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType, order);
-            else
+            if (order == 4)
+                CreateSth.createCommemorationDay(timeStamp, content);
+            else if (repeatType == 4)
                 CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, duration, repeatType, order);
+            else
+                CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType, order);
 
             Sider.itemList.renderList(timeStamp);
         } catch (Exception err) {
@@ -125,6 +127,7 @@ public class CreateScheduleFrame extends JFrame {
         this.selectOrderBox.addItem("低优先级");
         this.selectOrderBox.addItem("中优先级");
         this.selectOrderBox.addItem("高优先级");
+        this.selectOrderBox.addItem("纪念日");
         this.panSelectOrder.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.panSelectOrder.add(selectOrderText);
         this.panSelectOrder.add(selectOrderBox);
@@ -161,6 +164,24 @@ public class CreateScheduleFrame extends JFrame {
                 else {
                     frame.inputDuration.setAccess(false);
                     frame.inputDuration.setContent("");
+                }
+                if (cb.getSelectedIndex() == 4)
+                    frame.selectOrderBox.setEnabled(false);
+            }
+        });
+        this.selectOrderBox.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                @SuppressWarnings("unchecked")
+                JComboBox<String> cb = (JComboBox<String>) e.getSource();
+                CreateScheduleFrame frame = (CreateScheduleFrame) cb.getRootPane().getParent();
+                if (cb.getSelectedIndex() == 4) {
+                    frame.checkRepeat.setSelected(true);
+                    frame.checkRepeat.setEnabled(false);
+                    frame.selectRepeatTypeBox.setSelectedIndex(0);
+                    frame.selectRepeatTypeBox.setEnabled(false);
+                } else {
+                    frame.checkRepeat.setEnabled(true);
+                    frame.selectRepeatTypeBox.setEnabled(true);
                 }
             }
         });

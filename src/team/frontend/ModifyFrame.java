@@ -17,6 +17,7 @@ import team.Item.ItemsWork.DeleteSth;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
 import team.frontend.components.Sider;
+import team.utils.DateCalculator;
 import team.utils.NewInput;
 import team.utils.NewLabel;
 import team.utils.StaticEvent;
@@ -39,18 +40,19 @@ class HandleClickModifyBtn<T> implements ActionListener {
         short order = this.frame.getOrder();
         int duration = this.frame.getDuration();
         T ref = frame.getRef();
-        // TODO: 纪念日处理
 
         if (ref instanceof Schedule) {
             long timeStamp = ((Schedule) ref).getCreateTime();
             try {
                 DeleteSth.deleteSchedule((Schedule) ref);
-                if (repeatType != 4)
-                    CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType,
-                            order);
-                else
+                if (order == 5)
+                    CreateSth.createCommemorationDay(timeStamp, content);
+                else if (repeatType == 4)
                     CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, duration,
                             repeatType, order);
+                else
+                    CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType,
+                            order);
 
                 System.out.println(FindDaySth.findAllSchedule(timeStamp).size());
                 Sider.itemList.renderList(timeStamp);
@@ -88,7 +90,8 @@ class HandleClickDeleteBtn<T> implements ActionListener {
                 System.err.println(err.getMessage());
             }
         try {
-            Sider.itemList.renderList(frame.getTimeStamp());
+            Sider.itemList
+                    .renderList(DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
         } catch (ValueException err) {
             System.err.println(err.getMessage());
         } finally {
@@ -98,7 +101,6 @@ class HandleClickDeleteBtn<T> implements ActionListener {
 }
 
 public class ModifyFrame<T> extends JFrame {
-    private long timeStamp;
     private T ref;
 
     private NewLabel titleDate = new NewLabel("h4",
@@ -127,10 +129,6 @@ public class ModifyFrame<T> extends JFrame {
 
     public String getContent() {
         return this.inputContent.getContent();
-    }
-
-    public long getTimeStamp() {
-        return this.timeStamp;
     }
 
     public boolean getIsRepeat() {
@@ -165,7 +163,6 @@ public class ModifyFrame<T> extends JFrame {
 
     public ModifyFrame(T ref) {
         this.ref = ref;
-        this.setTitle("修改日程");
         this.setSize(300, 300);
         this.setLayout(new GridLayout(7, 1, 5, 5));
         StaticEvent.centerWindow(this);
@@ -181,6 +178,7 @@ public class ModifyFrame<T> extends JFrame {
         this.selectOrderBox.addItem("低优先级");
         this.selectOrderBox.addItem("中优先级");
         this.selectOrderBox.addItem("高优先级");
+        this.selectOrderBox.addItem("纪念日");
         this.panSelectOrder.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.panSelectOrder.add(selectOrderText);
         this.panSelectOrder.add(selectOrderBox);
@@ -219,6 +217,22 @@ public class ModifyFrame<T> extends JFrame {
                 }
             }
         });
+        this.selectOrderBox.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                @SuppressWarnings("unchecked")
+                JComboBox<String> cb = (JComboBox<String>) e.getSource();
+                ModifyFrame<?> frame = (ModifyFrame<?>) cb.getRootPane().getParent();
+                if (cb.getSelectedIndex() == 4) {
+                    frame.checkRepeat.setSelected(true);
+                    frame.checkRepeat.setEnabled(false);
+                    frame.selectRepeatTypeBox.setSelectedIndex(0);
+                    frame.selectRepeatTypeBox.setEnabled(false);
+                } else {
+                    frame.checkRepeat.setEnabled(true);
+                    frame.selectRepeatTypeBox.setEnabled(true);
+                }
+            }
+        });
         this.checkRepeat.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 JCheckBox cb = (JCheckBox) e.getSource();
@@ -233,10 +247,14 @@ public class ModifyFrame<T> extends JFrame {
         this.deleteBtn.addActionListener(new HandleClickDeleteBtn<T>(this));
 
         // TODO: 泛型！！！
-        if (ref instanceof Schedule)
+        if (ref instanceof Schedule) {
+            this.setTitle("修改日程");
             initialState((Schedule) ref);
-        else
+        } else if (ref instanceof CommemorationDay) {
+            this.setTitle("修改纪念日");
+            this.titleDate.setContent("h4", "每年 " + Context.month + "月 " + Context.solarDate + "日");
             initialState((CommemorationDay) ref);
+        }
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -247,8 +265,10 @@ public class ModifyFrame<T> extends JFrame {
         if (ref.getRepeatCode() != 0) {
             this.checkRepeat.setSelected(true);
             this.selectRepeatTypeBox.setSelectedIndex(ref.getRepeatCode() - 1);
-        } else
+        } else {
             this.selectRepeatTypeBox.setEnabled(false);
+            this.inputDuration.setAccess(false);
+        }
         this.selectOrderBox.setSelectedIndex(ref.getOrder());
         if (ref.getRepeatDuration() != 0)
             this.inputDuration.setContent(String.valueOf(ref.getRepeatDuration()));
@@ -256,6 +276,11 @@ public class ModifyFrame<T> extends JFrame {
 
     public void initialState(CommemorationDay ref) {
         System.out.println(ref.getClass());
+        this.inputContent.setContent(ref.getContent());
+        this.selectOrderBox.setSelectedIndex(4);
+        this.selectOrderBox.setEnabled(false);
+        this.checkRepeat.setSelected(true);
+        this.checkRepeat.setEnabled(false);
         this.inputContent.setContent(ref.getContent());
     }
 }

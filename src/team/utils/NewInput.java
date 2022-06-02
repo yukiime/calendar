@@ -28,8 +28,8 @@ public class NewInput extends JPanel {
         this.input.setText(content);
     }
 
-    public void setAccess(boolean f) {
-        this.input.setEnabled(f);
+    public void setAccess(boolean state) {
+        this.input.setEnabled(state);
     }
 
 }
