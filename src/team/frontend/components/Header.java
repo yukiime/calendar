@@ -10,8 +10,6 @@ import team.frontend.Context;
 import team.utils.NewLabel;
 
 public class Header extends JPanel {
-    // private String title;
-    // private NewLabel titleLabel = new NewLabel();
     private JComboBox<Integer> yearBox = new JComboBox<Integer>();
     private JComboBox<Integer> monthBox = new JComboBox<Integer>();
 
@@ -30,14 +28,12 @@ public class Header extends JPanel {
         this.yearBox.setSelectedIndex(date.get(Calendar.YEAR) - 1901);
         this.monthBox.setSelectedIndex(date.get(Calendar.MONTH));
 
-        // this.yearBox.setBounds(10, 33, 46, 22);
         this.yearBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getID() == ItemEvent.ITEM_STATE_CHANGED) {
+                    @SuppressWarnings("unchecked")
                     JComboBox<Integer> cb = (JComboBox<Integer>) e.getSource();
-                    if (cb.getSelectedIndex() + 1901 != Context.year) {
-                        Context.toggleFullDateInContext(cb.getSelectedIndex() + 1901, -1, 1);
-                    }
+                    Context.toggleFullDateInContext(cb.getSelectedIndex() + 1901, -1, 1);
                 }
             }
         });
@@ -45,10 +41,9 @@ public class Header extends JPanel {
         this.monthBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getID() == ItemEvent.ITEM_STATE_CHANGED) {
+                    @SuppressWarnings("unchecked")
                     JComboBox<Integer> cb = (JComboBox<Integer>) e.getSource();
-                    if (cb.getSelectedIndex() + 1 != Context.month) {
-                        Context.toggleFullDateInContext(-1, cb.getSelectedIndex() + 1, 1);
-                    }
+                    Context.toggleFullDateInContext(-1, cb.getSelectedIndex() + 1, 1);
                 }
             }
         });
