@@ -21,7 +21,7 @@ class ms<T1 extends ItemWrapper<T2>, T2> implements MouseListener {
         @SuppressWarnings("unchecked")
         T1 wrapper = (T1) e.getSource();
         if (!(wrapper.getRef() instanceof Festival)) {
-            ModifyFrame modifyFrame = new ModifyFrame<T2>(wrapper.getRef());
+            ModifyFrame<T2> modifyFrame = new ModifyFrame<T2>(wrapper.getRef());
         }
     }
 
