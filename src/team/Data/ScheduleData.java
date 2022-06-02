@@ -47,6 +47,13 @@ public class ScheduleData {
     System.out.println("插入notRepeat");
   }
 
+  //scheduleArrayNotRepeat更新为从本地文件更新的arrayList
+  public static void updateScheduleArrayNotRepeat(ArrayList<Schedule> arrayList)
+  {
+    scheduleArrayNotRepeat.clear();
+    scheduleArrayNotRepeat = arrayList;
+  }
+
   // 无重复日程队列的调用函数
   // 结束
 
@@ -70,6 +77,13 @@ public class ScheduleData {
   public static void addIndexScheduleArrayRepeat(int index, Schedule newSchedule) {
     ScheduleData.scheduleArrayRepeat.add(index, newSchedule);
     System.out.println("插入Repeat");
+  }
+
+  //scheduleArrayRepeat更新为从本地文件更新的arrayList
+  public static void updateScheduleArrayRepeat(ArrayList<Schedule> arrayList)
+  {
+    scheduleArrayRepeat.clear();
+    scheduleArrayRepeat = arrayList;
   }
 
   // 重复日程队列的调用函数
