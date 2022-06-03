@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 import team.Item.ItemsWork.CreateSth;
 import team.Item.ItemsWork.CreateSthRepeat;
+import team.Projectexception.EmptyContentException;
 import team.frontend.components.Sider;
 import team.utils.*;
 
@@ -31,6 +32,9 @@ class HandleClickSubmitBtn implements ActionListener {
         int duration = this.frame.getDuration();
 
         try {
+            if (content.length() == 0) {
+                throw new EmptyContentException();
+            }
             if (order == 4)
                 CreateSth.createCommemorationDay(timeStamp, content);
             else if (repeatType == 4)
@@ -39,10 +43,11 @@ class HandleClickSubmitBtn implements ActionListener {
                 CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType, order);
 
             Sider.itemList.renderList(timeStamp);
-        } catch (Exception err) {
-            System.err.println(err.getMessage());
-        } finally {
             this.frame.dispose();
+        } catch (EmptyContentException err) {
+            Alert.warn(err.getMessage());
+        } catch (Exception err) {
+            Alert.warn(err.getMessage());
         }
     }
 }
@@ -89,7 +94,7 @@ public class CreateScheduleFrame extends JFrame {
         try {
             return (short) (this.selectRepeatTypeBox.getSelectedIndex() + 1);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            Alert.warn(e.getMessage());
             return -1; // 转换失败
         }
     }
@@ -102,7 +107,6 @@ public class CreateScheduleFrame extends JFrame {
         try {
             return Integer.valueOf(this.inputDuration.getContent());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
             return 0;
         }
     }

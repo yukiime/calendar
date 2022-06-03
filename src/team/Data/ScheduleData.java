@@ -44,7 +44,6 @@ public class ScheduleData {
     // 将newSchedule插入到scheduleArrayNotRepeat的index位置
     public static void addIndexScheduleArrayNotRepeat(int index, Schedule newSchedule) {
         ScheduleData.scheduleArrayNotRepeat.add(index, newSchedule);
-        System.out.println("插入notRepeat");
     }
 
     // scheduleArrayNotRepeat更新为从本地文件更新的arrayList
@@ -75,7 +74,6 @@ public class ScheduleData {
     // 将newSchedule插入到scheduleArrayRepeat的index位置
     public static void addIndexScheduleArrayRepeat(int index, Schedule newSchedule) {
         ScheduleData.scheduleArrayRepeat.add(index, newSchedule);
-        System.out.println("插入Repeat");
     }
 
     // scheduleArrayRepeat更新为从本地文件更新的arrayList
