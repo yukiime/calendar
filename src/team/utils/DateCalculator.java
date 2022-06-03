@@ -48,7 +48,7 @@ public class DateCalculator {
     }
 
     public static boolean checkQueryVaild(int year, int month, int day) {
-        if (year < 1901 || year > 2100 || month < 1 || month > 12)
+        if (year < 1902 || year > 2100 || month < 1 || month > 12)
             return false;
         if (day < 1 || day > 31)
             return false;

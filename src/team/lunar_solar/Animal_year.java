@@ -38,12 +38,4 @@ public class Animal_year {
         return Animals[(year - 4) % 12];
     }
 
-    /*
-     * public static void main(String[] args) {
-     * System.out.println(Solar_Animal(2000, 1, 9));
-     * System.out.println(Lunar_Animal(2111,6,3));
-     *
-     * }
-     */
-
 }

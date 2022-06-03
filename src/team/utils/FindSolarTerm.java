@@ -1,6 +1,9 @@
 package team.utils;
 
 import team.Item.ItemSchedule.SolarTerm;
+import team.Projectexception.DateRangeException;
+import team.Projectexception.EmptyContentException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,12 +89,12 @@ public class FindSolarTerm {
 
         int centuryIndex = -1;
         try {
-            if (year >= 1901 && year <= 2000) {// 20世纪
+            if (year >= 1902 && year <= 2000) {// 20世纪
                 centuryIndex = 0;
             } else if (year >= 2001 && year <= 2100) {// 21世纪
                 centuryIndex = 1;
             } else {
-                throw new Exception("不支持此年份：" + year + "，目前只支持1901年到2100年的时间范围");
+                throw new DateRangeException();
             }
         } catch (Exception err) {
             Alert.warn(err.getMessage());

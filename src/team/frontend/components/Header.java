@@ -6,7 +6,9 @@ import java.util.Calendar;
 
 import javax.swing.*;
 
+import team.Projectexception.DateRangeException;
 import team.frontend.Context;
+import team.utils.Alert;
 
 public class Header extends JPanel {
     private JComboBox<Integer> yearBox = new JComboBox<Integer>();
@@ -47,5 +49,37 @@ public class Header extends JPanel {
             }
         });
         this.setBackground(Context.goldColors[5]);
+    }
+
+    public void goNext() {
+        int year = yearBox.getSelectedIndex() + 1902;
+        int month = monthBox.getSelectedIndex() + 1;
+        try {
+            if (year >= 2099 && month == 12)
+                throw new DateRangeException();
+            year = month == 12 ? year + 1 : year;
+            month = month == 12 ? 1 : month + 1;
+            Context.toggleFullDateInContext(year, month, 1);
+            yearBox.setSelectedIndex(year - 1902);
+            monthBox.setSelectedIndex(month - 1);
+        } catch (DateRangeException err) {
+            Alert.warn(err.getMessage());
+        }
+    }
+
+    public void goBack() {
+        int year = yearBox.getSelectedIndex() + 1902;
+        int month = monthBox.getSelectedIndex() + 1;
+        try {
+            if (year <= 1902 && month == 1)
+                throw new DateRangeException();
+            year = month == 1 ? year - 1 : year;
+            month = month == 1 ? 12 : month - 1;
+            Context.toggleFullDateInContext(year, month, 1);
+            yearBox.setSelectedIndex(year - 1902);
+            monthBox.setSelectedIndex(month - 1);
+        } catch (DateRangeException err) {
+            Alert.warn(err.getMessage());
+        }
     }
 }

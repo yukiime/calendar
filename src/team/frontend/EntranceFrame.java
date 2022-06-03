@@ -7,9 +7,10 @@ import team.utils.DateCalculator;
 import team.utils.StaticEvent;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 
-public class EntranceFrame extends JFrame {
+public class EntranceFrame extends JFrame implements MouseWheelListener {
 
     public static TopMenu tb = new TopMenu();
     public static Sider sd = new Sider(Context.year, Context.month, Context.solarDate);
@@ -35,6 +36,19 @@ public class EntranceFrame extends JFrame {
         sd.setPreferredSize(new Dimension(200, 425));
         StaticEvent.centerWindow(this);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addMouseWheelListener(this);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        e.consume();
+        int notches = e.getWheelRotation();
+        if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL)
+            if (notches < 0) {
+                header.goBack();
+            } else {
+                header.goNext();
+            }
     }
 
 }
