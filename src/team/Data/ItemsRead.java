@@ -8,22 +8,11 @@ import java.util.ArrayList;
 
 public class ItemsRead {
 
-    public static void main(String[] args) {
-        Test1();
-        readAllItems();
-        Test1();
-    }
-
-    public static void Test1() {
-        System.out.println(FestivalData.commemorationDays_festival.size());
-        for (CommemorationDay c : FestivalData.commemorationDays_festival) {
-            System.out.println(c.getId() + " " + c.getContent() + " " + c.getClass());
-        }
-    }
-
     public static void readAllItems() {
         try {
-            readCommemorationDays_festival();
+            //readCommemorationDays_festival();
+            readScheduleNotRepeat();
+            readScheduleRepeat();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -54,6 +43,9 @@ public class ItemsRead {
             Object object = os.readObject();
             FestivalData.commemorationDays_festival.add((CommemorationDay) object);
         }
+
+        //释放
+        os.close();
     }
 
     /**
@@ -63,7 +55,7 @@ public class ItemsRead {
      *
      * @throws IOException IO流异常
      */
-    private static void readScheduleNotRepeat() throws IOException {
+    private static void readScheduleNotRepeat() throws IOException, ClassNotFoundException {
         // 文件路径
         File file = new File("save\\scheduleNotRepeat.txt");
 
@@ -73,6 +65,21 @@ public class ItemsRead {
         // 存储读取数据的list
         ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayNotRepeat();
 
+        // 获取长度
+        int len = os.read();
+
+        //获取id长度
+        int idLen = os.read();
+        ScheduleData.setLen(idLen);
+
+        // 将读取的数据给实例并将实例添加到list中
+        for (int i = 0; i < len; i++) {
+            Object object = os.readObject();
+            arrayList.add((Schedule) object);
+        }
+
+        //释放
+        os.close();
     }
 
     /**
@@ -82,7 +89,7 @@ public class ItemsRead {
      *
      * @throws IOException IO流异常
      */
-    private static void readScheduleRepeat() throws IOException {
+    private static void readScheduleRepeat() throws IOException, ClassNotFoundException {
         // 文件路径
         File file = new File("save\\scheduleRepeat.txt");
 
@@ -91,5 +98,17 @@ public class ItemsRead {
 
         // 存储读取数据的list
         ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayRepeat();
+
+        // 获取长度
+        int len = os.read();
+
+        // 将读取的数据给实例并将实例添加到list中
+        for (int i = 0; i < len; i++) {
+            Object object = os.readObject();
+            arrayList.add((Schedule) object);
+        }
+
+        //释放
+        os.close();
     }
 }

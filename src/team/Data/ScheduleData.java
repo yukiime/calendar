@@ -22,6 +22,11 @@ public class ScheduleData {
         ScheduleData.len += 1;
     }
 
+    // 用于本地读取时设置len
+    public static void setLen(int len) {
+        ScheduleData.len = len;
+    }
+
     // len长度的维护模块
     // 结束
 

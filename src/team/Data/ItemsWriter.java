@@ -8,9 +8,19 @@ import java.util.ArrayList;
 
 public class ItemsWriter {
 
-    public static void main(String[] args) {
+    public static void test1()
+    {
         FestivalData.FestivalDataBase();
         writerAllItems();
+
+        System.out.println(FestivalData.commemorationDays_festival.size());
+
+        ItemsRead.readAllItems();
+
+        for(int i = 0 ;i< FestivalData.commemorationDays_festival.size() ;i ++)
+        {
+            System.out.println(FestivalData.commemorationDays_festival.get(i).getContent());
+        }
     }
 
     /**
@@ -19,7 +29,7 @@ public class ItemsWriter {
     public static void writerAllItems() {
         try {
             // 节日/纪念日
-            writerCommemorationDays_festival();
+            //writerCommemorationDays_festival();
             // 非重复类型的日程
             writerScheduleNotRepeat();
             // 重复类型的日程
@@ -78,6 +88,22 @@ public class ItemsWriter {
         // 当前的非重复日程的list
         ArrayList<Schedule> ScheduleNotRepeatList = ScheduleData.getScheduleArrayNotRepeat();
 
+        // 获取长度,方便以后读取
+        int len = ScheduleNotRepeatList.size();
+        int idLen = ScheduleData.getLen();
+
+        // 告知实例长度
+        os.write(len);
+
+        // 告知id长度
+        os.write(idLen);
+
+        // 将list中的实例写入文件中
+        for (Object c : ScheduleNotRepeatList) {
+            // 获取每个实例
+            os.writeObject(c);
+        }
+
         // 释放
         os.close();
     }
@@ -97,6 +123,18 @@ public class ItemsWriter {
 
         // 当前的重复日程的list
         ArrayList<Schedule> ScheduleRepeatList = ScheduleData.getScheduleArrayRepeat();
+
+        // 获取长度,方便以后读取
+        int len = ScheduleRepeatList.size();
+
+        // 告知实例长度
+        os.write(len);
+
+        // 将list中的实例写入文件中
+        for (Object c : ScheduleRepeatList) {
+            // 获取每个实例
+            os.writeObject(c);
+        }
 
         // 释放
         os.close();
