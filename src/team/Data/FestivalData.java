@@ -99,7 +99,7 @@ public class FestivalData {
         commemorationDays_festival.add(festival);
         festival = new Festival(21, 6, 1, "儿童节"); // 20
         commemorationDays_festival.add(festival);
-        festival = new Festival(22, 6, 4, "受侵略戕害的无辜儿童国际日");
+        festival = new Festival(22, 6, 4, "受侵略戕害的无辜儿童日");
         commemorationDays_festival.add(festival);
         festival = new Festival(23, 6, 5, "环境日");
         commemorationDays_festival.add(festival);
@@ -137,7 +137,7 @@ public class FestivalData {
         commemorationDays_festival.add(festival);
         festival = new Festival(40, 8, 26, "全国律师咨询日");
         commemorationDays_festival.add(festival);
-        festival = new Festival(41, 9, 3, "世界反法西斯战争胜利纪念日"); // 40
+        festival = new Festival(41, 9, 3, "反法西斯战争胜利纪念日"); // 40
         commemorationDays_festival.add(festival);
         festival = new Festival(42, 9, 5, "中华慈善日");
         commemorationDays_festival.add(festival);
@@ -159,7 +159,7 @@ public class FestivalData {
         commemorationDays_festival.add(festival);
         festival = new Festival(51, 12, 4, "国家宪法日");
         commemorationDays_festival.add(festival);
-        festival = new Festival(52, 12, 13, "南京大屠杀死难者国家公祭日");
+        festival = new Festival(52, 12, 13, "南京大屠杀死难者公祭日");
         commemorationDays_festival.add(festival);
         festival = new Festival(53, 12, 26, "国际残疾人日");
         commemorationDays_festival.add(festival);
