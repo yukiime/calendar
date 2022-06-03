@@ -27,7 +27,7 @@ public class ItemsRead {
      */
     private static void readCommemorationDays_festival() throws IOException, ClassNotFoundException {
         // 文件路径
-        File file = new File("save\\commemorationDays_festival.txt");
+        File file = new File("save\\commemorationDays_festival");
 
         // 反序列化流
         ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
@@ -57,7 +57,7 @@ public class ItemsRead {
      */
     private static void readScheduleNotRepeat() throws IOException, ClassNotFoundException {
         // 文件路径
-        File file = new File("save\\scheduleNotRepeat.txt");
+        File file = new File("save\\scheduleNotRepeat");
 
         // 反序列化流
         ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
@@ -93,7 +93,7 @@ public class ItemsRead {
      */
     private static void readScheduleRepeat() throws IOException, ClassNotFoundException {
         // 文件路径
-        File file = new File("save\\scheduleRepeat.txt");
+        File file = new File("save\\scheduleRepeat");
 
         // 反序列化流
         ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));

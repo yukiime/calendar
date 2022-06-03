@@ -38,7 +38,7 @@ public class ItemsWriter {
      */
     private static void writerCommemorationDays_festival() throws IOException {
         // 文件路径
-        File file = new File("save\\commemorationDays_festival.txt");
+        File file = new File("save\\commemorationDays_festival");
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
@@ -71,7 +71,7 @@ public class ItemsWriter {
      */
     private static void writerScheduleNotRepeat() throws IOException {
         // 文件路径
-        File file = new File("save\\scheduleNotRepeat.txt");
+        File file = new File("save\\scheduleNotRepeat");
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
@@ -107,7 +107,7 @@ public class ItemsWriter {
      */
     private static void writerScheduleRepeat() throws IOException {
         // 文件路径
-        File file = new File("save\\scheduleRepeat.txt");
+        File file = new File("save\\scheduleRepeat");
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
