@@ -3,9 +3,7 @@ package team.lunar_solar;
 public class Vehicle_Limit {
     /**
      *
-     * @param year
-     * @param month
-     * @param day
+     * @param w 星期数
      * @return 限行尾号
      */
     public static String computeVehicle(int w) {
@@ -23,6 +21,7 @@ public class Vehicle_Limit {
         String vehicle = " ";
         switch (w % 7) {
             case 0:
+            case 6:
                 vehicle = "该日杭州车辆不限行";
                 break;// 星期日
             case 1:
@@ -40,9 +39,7 @@ public class Vehicle_Limit {
             case 5:
                 vehicle = "该日杭州限行尾号为5和0";
                 break;// 星期五
-            case 6:
-                vehicle = "该日杭州车辆不限行";
-                break;// 星期六
+// 星期六
             default:
                 vehicle = "输入数据有误";
                 break;
