@@ -4,12 +4,11 @@ import java.awt.*;
 import java.util.Calendar;
 
 public class Context {
-    public static Calendar date = Calendar.getInstance();
-    public static int year = 2022;
-    public static int month = 6;
-    public static int solarDate = 5;
+    public static Calendar date;
+    public static int year;
+    public static int month;
+    public static int solarDate;
     public static int MILLISECOND_DAY = 86400000;
-    // TODO: initialize data
     // TODO: improve visiblity
 
     public static Color[] goldColors = {
@@ -65,6 +64,13 @@ public class Context {
         二十一, 二十二, 二十三, 二十四, 二十五,
         二十六, 二十七, 二十八, 二十九, 三十,
         三十一
+    }
+
+    public static void initialContext() {
+        date = Calendar.getInstance();
+        year = date.get(Calendar.YEAR);
+        month = date.get(Calendar.MONTH) + 1;
+        solarDate = date.get(Calendar.DATE);
     }
 
     public static void toggleFullDateInContext(int year, int month, int solarDate) {

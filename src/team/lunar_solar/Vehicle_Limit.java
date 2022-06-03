@@ -47,11 +47,5 @@ public class Vehicle_Limit {
         return vehicle;
 
     }
-    /*
-     * public static void main(String[] args) {
-     * System.out.println(computeVehicle(2022,5,30));
-     * System.out.println(computeVehicle(2022,6,1));
-     * }
-     */
 
 }

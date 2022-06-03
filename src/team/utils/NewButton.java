@@ -1,7 +1,6 @@
 package team.utils;
 
 import javax.swing.JPanel;
-import java.awt.*;
 import java.awt.event.*;
 
 class ms implements MouseListener {

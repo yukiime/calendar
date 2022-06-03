@@ -1,6 +1,7 @@
 import team.Data.FestivalData;
 import team.Data.ItemsRead;
 import team.Data.ItemsWriter;
+import team.frontend.Context;
 import team.frontend.EntranceFrame;
 
 public class MainCalendar {
@@ -16,6 +17,7 @@ public class MainCalendar {
     }
 
     private static void initialData() {
+        Context.initialContext();
         ItemsRead.readAllItems();
         FestivalData.FestivalDataBase();
     }

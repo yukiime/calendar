@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-import team.Item.ItemsWork.FindDaySth;
 import team.frontend.Context;
 import team.frontend.CreateScheduleFrame;
 import team.lunar_solar.LS;
+import team.lunar_solar.Vehicle_Limit;
 import team.utils.DateCalculator;
 import team.utils.DateEvent;
 import team.utils.NewLabel;
@@ -29,6 +29,7 @@ public class Sider extends JPanel {
     public static NewLabel year_monthLabel = new NewLabel();
     public static NewLabel solarDateLabel = new NewLabel();
     public static NewLabel weekDayLabel = new NewLabel();
+    public static NewLabel vehicleLabel = new NewLabel();
     public static NewLabel lunarDateTextLabel = new NewLabel();
     public static NewLabel todayFortuneLabel = new NewLabel();
     public static NewLabel todayMisfortuneLabel = new NewLabel();
@@ -38,9 +39,6 @@ public class Sider extends JPanel {
     public static ArrayList<ScheduleWrapper> scheduleListData = new ArrayList<ScheduleWrapper>();
 
     public Sider() {
-        // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        // this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        // this.setLayout(new GridLayout(9, 1, 5, 5));
         this.setLayout(new BorderLayout());
     }
 
@@ -56,6 +54,7 @@ public class Sider extends JPanel {
         jp.add(lunarDateTextLabel);
         jp.add(todayFortuneLabel);
         jp.add(todayMisfortuneLabel);
+        jp.add(vehicleLabel);
         jp.add(createBtn);
         this.add("North", jp);
         jp.setBackground(Context.goldColors[3]);
@@ -81,6 +80,7 @@ public class Sider extends JPanel {
         solarDateLabel.setContent("h1", String.valueOf(solarDate));
         year_monthLabel.setContent("text", String.valueOf(year) + "年" + String.valueOf(month) + "月");
         weekDayLabel.setContent("h4", Context.DayOfWeekChar.values()[Context.selectedNum % 7].toString());
+        vehicleLabel.setContent("text danger", Vehicle_Limit.computeVehicle(year, month, solarDate));
         lunarDateTextLabel.setContent("text", String.valueOf(lunarMonthText) + String.valueOf(lunarDateText));
         todayFortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[0]);
         todayMisfortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[1]);

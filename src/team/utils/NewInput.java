@@ -1,7 +1,6 @@
 package team.utils;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class NewInput extends JPanel {
     private NewLabel title;
