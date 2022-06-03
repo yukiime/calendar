@@ -15,7 +15,6 @@ import team.Projectexception.ValueException;
 import team.frontend.Context;
 import team.frontend.ModifyFrame;
 import team.utils.Alert;
-import team.utils.NewLabel;
 
 class ms<T1 extends ItemWrapper<T2>, T2> implements MouseListener {
 

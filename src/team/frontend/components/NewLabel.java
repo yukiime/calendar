@@ -1,4 +1,4 @@
-package team.utils;
+package team.frontend.components;
 
 import java.awt.Color;
 import java.awt.Font;

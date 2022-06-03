@@ -9,6 +9,8 @@ import java.awt.event.*;
 import team.Item.ItemsWork.CreateSth;
 import team.Item.ItemsWork.CreateSthRepeat;
 import team.Projectexception.EmptyContentException;
+import team.frontend.components.NewInput;
+import team.frontend.components.NewLabel;
 import team.frontend.components.Sider;
 import team.utils.*;
 

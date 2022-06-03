@@ -3,11 +3,11 @@ package team.frontend;
 import javax.swing.*;
 
 import team.Projectexception.InvaildQueryException;
+import team.frontend.components.NewInput;
+import team.frontend.components.NewLabel;
 import team.lunar_solar.LS;
 import team.utils.Alert;
 import team.utils.DateCalculator;
-import team.utils.NewInput;
-import team.utils.NewLabel;
 import team.utils.StaticEvent;
 
 import java.awt.*;

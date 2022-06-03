@@ -7,7 +7,6 @@ import java.util.Calendar;
 import javax.swing.*;
 
 import team.frontend.Context;
-import team.utils.NewLabel;
 
 public class Header extends JPanel {
     private JComboBox<Integer> yearBox = new JComboBox<Integer>();

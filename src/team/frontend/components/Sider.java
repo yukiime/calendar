@@ -12,7 +12,6 @@ import team.lunar_solar.LS;
 import team.lunar_solar.Vehicle_Limit;
 import team.utils.DateCalculator;
 import team.utils.DateEvent;
-import team.utils.NewLabel;
 
 class HandleClickCreateBtn implements ActionListener {
     public HandleClickCreateBtn() {

@@ -5,7 +5,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import team.frontend.Context;
-import team.utils.NewLabel;
 
 public class DayOfWeekBar extends JPanel {
     public DayOfWeekBar() {
