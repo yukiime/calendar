@@ -8,15 +8,19 @@ public class Vehicle_Limit {
      * @param day
      * @return 限行尾号
      */
-    public static String computeVehicle(int year, int month, int day) {
+    public static String computeVehicle(int w) {
+        // public static String computeVehicle(int year, int month, int day) {
 
-        int w = 0;
-        int y = WeekDay.compute_y(year);
-        int c = WeekDay.compute_c(year);
-        int m = WeekDay.compute_m(month);
-        int d = WeekDay.compute_d(day);
+        /*
+         * int w = 0;
+         * int y = WeekDay.compute_y(year);
+         * int c = WeekDay.compute_c(year);
+         * int m = WeekDay.compute_m(month);
+         * int d = WeekDay.compute_d(day);
+         * w = y + y / 4 + c / 4 - 2 * c + 26 * (m + 1) / 10 + d - 1;
+         */
+
         String vehicle = " ";
-        w = y + y / 4 + c / 4 - 2 * c + 26 * (m + 1) / 10 + d - 1;
         switch (w % 7) {
             case 0:
                 vehicle = "该日杭州车辆不限行";

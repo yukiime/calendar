@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import team.frontend.Context;
 import team.frontend.EntranceFrame;
+import team.lunar_solar.Animal_year;
 import team.lunar_solar.LS;
 import team.utils.*;
 
@@ -76,6 +77,8 @@ class DayBox extends JPanel {
             this.add(new NewLabel("text" + curMonthState, jieqi));
         else
             this.add(new NewLabel("text" + curMonthState, lunarDateText));
+        if (lunarDateText.equals("正月"))
+            this.add(new NewLabel("text weak", Animal_year.Solar_Animal(year, month, solarDateNum)));
 
         this.setBackground(defaultBackgroundColor);
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

@@ -13,8 +13,8 @@ public class Header extends JPanel {
     private JComboBox<Integer> monthBox = new JComboBox<Integer>();
 
     public Header(Calendar date) {
-        for (int i = 0; i < 200; i++) {
-            yearBox.addItem(i + 1901);
+        for (int i = 0; i < 198; i++) {
+            yearBox.addItem(i + 1902);
         }
         for (int i = 1; i <= 12; i++) {
             monthBox.addItem(i);
@@ -24,7 +24,7 @@ public class Header extends JPanel {
         this.add(monthBox);
         this.add(new NewLabel("h3", "月"));
 
-        this.yearBox.setSelectedIndex(date.get(Calendar.YEAR) - 1901);
+        this.yearBox.setSelectedIndex(date.get(Calendar.YEAR) - 1902);
         this.monthBox.setSelectedIndex(date.get(Calendar.MONTH));
 
         this.yearBox.addItemListener(new ItemListener() {
@@ -32,7 +32,7 @@ public class Header extends JPanel {
                 if (e.getID() == ItemEvent.ITEM_STATE_CHANGED) {
                     @SuppressWarnings("unchecked")
                     JComboBox<Integer> cb = (JComboBox<Integer>) e.getSource();
-                    Context.toggleFullDateInContext(cb.getSelectedIndex() + 1901, -1, 1);
+                    Context.toggleFullDateInContext(cb.getSelectedIndex() + 1902, -1, 1);
                 }
             }
         });

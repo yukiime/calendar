@@ -33,7 +33,8 @@ public class Animal_year {
      * @return 传回阴历year年month月monthDay的生肖
      */
     static public String Lunar_Animal(int year, int month, int monthDay) {
-        final String[] Animals = new String[] { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
+        final String[] Animals = new String[] { "子鼠", "丑牛", "寅虎", "卯兔", "辰龙", "巳蛇", "午马", "未羊", "申猴", "酉鸡", "戌狗",
+                "亥猪" };
         return Animals[(year - 4) % 12];
     }
 

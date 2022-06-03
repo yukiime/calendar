@@ -77,9 +77,9 @@ public class Sider extends JPanel {
         String lunarMonthText = Context.MonthChar.values()[tmp[1] - 1].toString();
 
         solarDateLabel.setContent("h1", String.valueOf(solarDate));
-        year_monthLabel.setContent("text", String.valueOf(year) + "年" + String.valueOf(month) + "月");
+        year_monthLabel.setContent("h4", String.valueOf(year) + "年" + String.valueOf(month) + "月");
         weekDayLabel.setContent("h4", Context.DayOfWeekChar.values()[Context.selectedNum % 7].toString());
-        vehicleLabel.setContent("text danger", Vehicle_Limit.computeVehicle(year, month, solarDate));
+        vehicleLabel.setContent("text danger", Vehicle_Limit.computeVehicle(Context.selectedNum % 7));
         lunarDateTextLabel.setContent("text", String.valueOf(lunarMonthText) + String.valueOf(lunarDateText));
         todayFortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[0]);
         todayMisfortuneLabel.setContent("text", DateEvent.todayFortune(solarDate)[1]);
