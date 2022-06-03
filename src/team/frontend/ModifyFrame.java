@@ -14,7 +14,6 @@ import team.Item.ItemSchedule.Schedule;
 import team.Item.ItemsWork.CreateSth;
 import team.Item.ItemsWork.CreateSthRepeat;
 import team.Item.ItemsWork.DeleteSth;
-import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
 import team.frontend.components.Sider;
 import team.utils.Alert;
@@ -55,7 +54,8 @@ class HandleClickModifyBtn<T> implements ActionListener {
                     CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType,
                             order);
 
-                Sider.itemList.renderList(timeStamp);
+                Sider.itemList
+                        .renderList(DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
             } catch (Exception err) {
                 Alert.warn(err.getMessage());
             }
@@ -64,7 +64,9 @@ class HandleClickModifyBtn<T> implements ActionListener {
             try {
                 DeleteSth.deleteCommemorationDays_festival(((CommemorationDay) frame.getRef()).getId());
                 CreateSth.createCommemorationDay(timeStamp, content);
-                Sider.itemList.renderList(timeStamp);
+                Sider.itemList
+                        .renderList(DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
+
             } catch (Exception err) {
                 Alert.warn(err.getMessage());
             }
@@ -152,7 +154,6 @@ public class ModifyFrame<T> extends JFrame {
         try {
             return Integer.valueOf(this.inputDuration.getContent());
         } catch (Exception e) {
-            Alert.warn(e.getMessage());
             return 0;
         }
     }
