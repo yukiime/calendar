@@ -9,12 +9,17 @@ import java.util.ArrayList;
 public class ItemsRead {
 
     public static void readAllItems() {
-        try {
-            //readCommemorationDays_festival();
-            readScheduleNotRepeat();
-            readScheduleRepeat();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+
+        File file = new File("save");
+        if(file.isDirectory())
+         {
+            try {
+                //readCommemorationDays_festival();
+                readScheduleNotRepeat();
+                readScheduleRepeat();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -29,23 +34,26 @@ public class ItemsRead {
         // 文件路径
         File file = new File("save\\commemorationDays_festival");
 
-        // 反序列化流
-        ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
+        if(file.isFile())
+        {
+            // 反序列化流
+            ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
 
-        // 清空
-        FestivalData.commemorationDays_festival.clear();
+            // 清空
+            FestivalData.commemorationDays_festival.clear();
 
-        // 获取长度
-        int len = os.read();
+            // 获取长度
+            int len = os.read();
 
-        // 将读取的数据给实例并将实例添加到list中
-        for (int i = 0; i < len; i++) {
-            Object object = os.readObject();
-            FestivalData.commemorationDays_festival.add((CommemorationDay) object);
+            // 将读取的数据给实例并将实例添加到list中
+            for (int i = 0; i < len; i++) {
+                Object object = os.readObject();
+                FestivalData.commemorationDays_festival.add((CommemorationDay) object);
+            }
+
+            //释放
+            os.close();
         }
-
-        //释放
-        os.close();
     }
 
     /**
@@ -59,29 +67,32 @@ public class ItemsRead {
         // 文件路径
         File file = new File("save\\scheduleNotRepeat");
 
-        // 反序列化流
-        ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
+        if(file.isFile())
+        {
+            // 反序列化流
+            ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
 
-        // 存储读取数据的list
-        ArrayList<Schedule> arrayList = new ArrayList<>();
+            // 存储读取数据的list
+            ArrayList<Schedule> arrayList = new ArrayList<>();
 
-        // 获取长度
-        int len = os.read();
+            // 获取长度
+            int len = os.read();
 
-        //获取id长度
-        int idLen = os.read();
-        ScheduleData.setLen(idLen);
+            //获取id长度
+            int idLen = os.read();
+            ScheduleData.setLen(idLen);
 
-        // 将读取的数据给实例并将实例添加到list中
-        for (int i = 0; i < len; i++) {
-            Object object = os.readObject();
-            arrayList.add((Schedule) object);
+            // 将读取的数据给实例并将实例添加到list中
+            for (int i = 0; i < len; i++) {
+                Object object = os.readObject();
+                arrayList.add((Schedule) object);
+            }
+
+            ScheduleData.updateScheduleArrayNotRepeat(arrayList);
+
+            //释放
+            os.close();
         }
-
-        ScheduleData.updateScheduleArrayNotRepeat(arrayList);
-
-        //释放
-        os.close();
     }
 
     /**
@@ -95,24 +106,27 @@ public class ItemsRead {
         // 文件路径
         File file = new File("save\\scheduleRepeat");
 
-        // 反序列化流
-        ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
+        if(file.isFile())
+        {
+            // 反序列化流
+            ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
 
-        // 存储读取数据的list
-        ArrayList<Schedule> arrayList = new ArrayList<>();
+            // 存储读取数据的list
+            ArrayList<Schedule> arrayList = new ArrayList<>();
 
-        // 获取长度
-        int len = os.read();
+            // 获取长度
+            int len = os.read();
 
-        // 将读取的数据给实例并将实例添加到list中
-        for (int i = 0; i < len; i++) {
-            Object object = os.readObject();
-            arrayList.add((Schedule) object);
+            // 将读取的数据给实例并将实例添加到list中
+            for (int i = 0; i < len; i++) {
+                Object object = os.readObject();
+                arrayList.add((Schedule) object);
+            }
+
+            ScheduleData.updateScheduleArrayRepeat(arrayList);
+
+            //释放
+            os.close();
         }
-
-        ScheduleData.updateScheduleArrayRepeat(arrayList);
-
-        //释放
-        os.close();
     }
 }

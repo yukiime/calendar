@@ -16,6 +16,13 @@ public class ItemsWriter {
      * @return null
      */
     public static ActionListener writerAllItems() {
+
+        File file = new File("save");
+        if(!file.isDirectory())
+        {
+            System.out.println(file.mkdir());
+        }
+
         try {
             // 节日/纪念日
             //writerCommemorationDays_festival();
@@ -39,6 +46,12 @@ public class ItemsWriter {
     private static void writerCommemorationDays_festival() throws IOException {
         // 文件路径
         File file = new File("save\\commemorationDays_festival");
+
+        //检测文件是否存在
+        if(file.isFile())
+        {
+            System.out.println(file.createNewFile());
+        }
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
@@ -72,6 +85,12 @@ public class ItemsWriter {
     private static void writerScheduleNotRepeat() throws IOException {
         // 文件路径
         File file = new File("save\\scheduleNotRepeat");
+
+        //检测文件是否存在
+        if(file.isFile())
+        {
+            System.out.println(file.createNewFile());
+        }
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
@@ -108,6 +127,12 @@ public class ItemsWriter {
     private static void writerScheduleRepeat() throws IOException {
         // 文件路径
         File file = new File("save\\scheduleRepeat");
+
+        //检测文件是否存在
+        if(file.isFile())
+        {
+            System.out.println(file.createNewFile());
+        }
 
         // 序列化流
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
