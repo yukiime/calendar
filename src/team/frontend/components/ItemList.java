@@ -5,6 +5,7 @@ import java.util.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.awt.*;
 
 import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Festival;
@@ -13,6 +14,7 @@ import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
 import team.frontend.Context;
 import team.frontend.ModifyFrame;
+import team.utils.Alert;
 import team.utils.NewLabel;
 
 class ms<T1 extends ItemWrapper<T2>, T2> implements MouseListener {
@@ -88,27 +90,32 @@ class CommemorationDayWrapper extends ItemWrapper<CommemorationDay> {
     }
 }
 
-public class ItemList extends JPanel {
+public class ItemList extends JScrollPane {
     public static ArrayList<ScheduleWrapper> scheduleListData = new ArrayList<ScheduleWrapper>();
     public static ArrayList<CommemorationDayWrapper> commDayListData = new ArrayList<CommemorationDayWrapper>();
+    private JPanel container = new JPanel();
+    private JPanel listPanel = new JPanel();
 
     public ItemList(long timeStamp) {
+        this.container.setBackground(Context.goldColors[3]);
+        this.setViewportView(container);
         try {
             this.renderList(timeStamp);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            Alert.warn(e.getMessage());
         }
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        this.container.setLayout(new BorderLayout());
+        this.container.add("North", listPanel);
     }
 
     public void renderList(long timeStamp) throws ValueException {
 
-        System.out.println("time in list " + timeStamp);
         // TODO: Genetic format
 
         // 节日纪念日
         for (CommemorationDayWrapper item : commDayListData) {
-            this.remove(item);
+            this.listPanel.remove(item);
         }
 
         commDayListData.clear();
@@ -116,19 +123,19 @@ public class ItemList extends JPanel {
             commDayListData.add(new CommemorationDayWrapper(item));
         }
         for (CommemorationDayWrapper item : commDayListData) {
-            this.add(item);
+            this.listPanel.add(item);
         }
 
         // 日程
         for (ScheduleWrapper item : scheduleListData) {
-            this.remove(item);
+            this.listPanel.remove(item);
         }
         scheduleListData.clear();
         for (Schedule item : FindDaySth.findAllSchedule(timeStamp)) {
             scheduleListData.add(new ScheduleWrapper(item));
         }
         for (ScheduleWrapper item : scheduleListData) {
-            this.add(item);
+            this.listPanel.add(item);
         }
 
         this.updateUI();

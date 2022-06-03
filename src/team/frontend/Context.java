@@ -73,6 +73,5 @@ public class Context {
         Context.solarDate = solarDate;
         date.set(Context.year, Context.month - 1, solarDate);
         EntranceFrame.cg.renderBox(date);
-        System.out.println(Context.year + " " + Context.month + " " + Context.solarDate);
     }
 }

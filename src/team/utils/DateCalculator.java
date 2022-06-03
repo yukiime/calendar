@@ -19,7 +19,7 @@ public class DateCalculator {
     public static int dayOfWeek(int year, int month, int solarDate) {
         Calendar date = Calendar.getInstance();
         date.set(year, month - 1, solarDate);
-        return date.get(Calendar.DAY_OF_WEEK);
+        return date.get(Calendar.DAY_OF_WEEK) - 1;
     }
 
     public static int distanceOfToday(int year, int month, int solarDate) {
@@ -47,4 +47,9 @@ public class DateCalculator {
         return date;
     }
 
+    public static boolean checkQueryVaild(int year, int month, int day) {
+        if (year < 1901 || year > 2100 || month < 1 || month > 12 || day < 0 || day > 31)
+            return false;
+        return true;
+    }
 }

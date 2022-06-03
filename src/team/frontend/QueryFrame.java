@@ -2,7 +2,9 @@ package team.frontend;
 
 import javax.swing.*;
 
+import team.Projectexception.InvaildQueryException;
 import team.lunar_solar.LS;
+import team.utils.Alert;
 import team.utils.DateCalculator;
 import team.utils.NewInput;
 import team.utils.NewLabel;
@@ -30,7 +32,7 @@ class HandleParseLunar2Solar implements ActionListener {
                     + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(res[0], res[1], res[2]) - 1]);
 
         } catch (Exception err) {
-            System.err.println("Exception: " + err.getMessage());
+            Alert.warn(err.getMessage());
             QueryFrame.rp.setResult("转换失败，格式错误");
         }
     }
@@ -43,7 +45,8 @@ class HandleParseSolar2Lunar implements ActionListener {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month = Integer.parseInt(tmp.split("年")[1].split("月")[0]);
             int solarDate = Integer.parseInt(tmp.split("年")[1].split("月")[1].split("日")[0]);
-
+            if (!DateCalculator.checkQueryVaild(year, month, solarDate))
+                throw new InvaildQueryException();
             int[] res = LS.solarToLunar(year, month, solarDate);
             QueryFrame.setDistance(DateCalculator.distanceOfToday(year, month, solarDate));
             QueryFrame.rp
@@ -52,8 +55,12 @@ class HandleParseSolar2Lunar implements ActionListener {
                                     + Context.MonthChar.values()[res[1] - 1].toString()
                                     + Context.LunarChar.values()[res[2] - 1] + " "
                                     + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(year, month, solarDate)]);
+        } catch (InvaildQueryException err) {
+            Alert.warn(err.getMessage());
+        } catch (ArrayIndexOutOfBoundsException err) {
+            Alert.warn("输入格式错误");
         } catch (Exception err) {
-            System.err.println("Exception: " + err.getMessage());
+            Alert.warn(err.getMessage());
             QueryFrame.rp.setResult("转换失败");
         }
     }
@@ -121,7 +128,7 @@ public class QueryFrame extends JFrame {
         if (num < 0)
             distance.setContent("text danger", "这个日子已经过去 " + -num + " 天了");
         else if (num > 0)
-            distance.setContent("text", "距离这天还有 " + num + " 天");
+            distance.setContent("text", "距离这个日子还有 " + num + " 天");
         else
             distance.setContent("text", "就是今天!");
     }

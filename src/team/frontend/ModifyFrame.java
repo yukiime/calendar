@@ -17,6 +17,7 @@ import team.Item.ItemsWork.DeleteSth;
 import team.Item.ItemsWork.FindDaySth;
 import team.Projectexception.ValueException;
 import team.frontend.components.Sider;
+import team.utils.Alert;
 import team.utils.DateCalculator;
 import team.utils.NewInput;
 import team.utils.NewLabel;
@@ -54,10 +55,9 @@ class HandleClickModifyBtn<T> implements ActionListener {
                     CreateSthRepeat.createSchedule(timeStamp, content, isRepeat, repeatType,
                             order);
 
-                System.out.println(FindDaySth.findAllSchedule(timeStamp).size());
                 Sider.itemList.renderList(timeStamp);
             } catch (Exception err) {
-                System.err.println(err.getMessage());
+                Alert.warn(err.getMessage());
             }
         } else if (ref instanceof CommemorationDay) {
             long timeStamp = ((CommemorationDay) ref).getCreateTime();
@@ -66,7 +66,7 @@ class HandleClickModifyBtn<T> implements ActionListener {
                 CreateSth.createCommemorationDay(timeStamp, content);
                 Sider.itemList.renderList(timeStamp);
             } catch (Exception err) {
-                System.out.println(err.getMessage());
+                Alert.warn(err.getMessage());
             }
         }
         this.frame.dispose();
@@ -87,13 +87,13 @@ class HandleClickDeleteBtn<T> implements ActionListener {
             try {
                 DeleteSth.deleteCommemorationDays_festival(((CommemorationDay) frame.getRef()).getId());
             } catch (Exception err) {
-                System.err.println(err.getMessage());
+                Alert.warn(err.getMessage());
             }
         try {
             Sider.itemList
                     .renderList(DateCalculator.get0clockTimeStamp(Context.year, Context.month, Context.solarDate));
         } catch (ValueException err) {
-            System.err.println(err.getMessage());
+            Alert.warn(err.getMessage());
         } finally {
             this.frame.dispose();
         }
@@ -139,7 +139,7 @@ public class ModifyFrame<T> extends JFrame {
         try {
             return (short) (this.selectRepeatTypeBox.getSelectedIndex() + 1);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            Alert.warn(e.getMessage());
             return -1; // 转换失败
         }
     }
@@ -152,7 +152,7 @@ public class ModifyFrame<T> extends JFrame {
         try {
             return Integer.valueOf(this.inputDuration.getContent());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            Alert.warn(e.getMessage());
             return 0;
         }
     }
@@ -275,7 +275,6 @@ public class ModifyFrame<T> extends JFrame {
     }
 
     public void initialState(CommemorationDay ref) {
-        System.out.println(ref.getClass());
         this.inputContent.setContent(ref.getContent());
         this.selectOrderBox.setSelectedIndex(4);
         this.selectOrderBox.setEnabled(false);
