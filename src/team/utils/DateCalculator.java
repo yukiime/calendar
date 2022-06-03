@@ -47,9 +47,23 @@ public class DateCalculator {
         return date;
     }
 
-    public static boolean checkQueryVaild(int year, int month, int day) {
-        if (year < 1901 || year > 2100 || month < 1 || month > 12 || day < 0 || day > 31)
+    public static boolean checkQueryVaild(int year, int month, int day, int type) {
+        if (year < 1901 || year > 2100 || month < 1 || month > 12)
             return false;
+        if (type == 1) {
+            if (day < 1 || day > 31)
+                return false;
+            if (month == 2)
+                if ((year % 4 == 0) && (year % 100 == 0) && (day > 29)) {
+                    return false;
+                } else if (day > 28)
+                    return false;
+            if ((month == 4 || month == 6 || month == 9 || month == 11) && (day == 31)) {
+                return false;
+            }
+        } else if (type == 2)
+            if (day > 30)
+                return false;
         return true;
     }
 }
