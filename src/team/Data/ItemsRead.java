@@ -63,7 +63,7 @@ public class ItemsRead {
         ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
 
         // 存储读取数据的list
-        ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayNotRepeat();
+        ArrayList<Schedule> arrayList = new ArrayList<>();
 
         // 获取长度
         int len = os.read();
@@ -77,6 +77,8 @@ public class ItemsRead {
             Object object = os.readObject();
             arrayList.add((Schedule) object);
         }
+
+        ScheduleData.updateScheduleArrayNotRepeat(arrayList);
 
         //释放
         os.close();
@@ -97,7 +99,7 @@ public class ItemsRead {
         ObjectInputStream os = new ObjectInputStream(new FileInputStream(file));
 
         // 存储读取数据的list
-        ArrayList<Schedule> arrayList = ScheduleData.getScheduleArrayRepeat();
+        ArrayList<Schedule> arrayList = new ArrayList<>();
 
         // 获取长度
         int len = os.read();
@@ -107,6 +109,8 @@ public class ItemsRead {
             Object object = os.readObject();
             arrayList.add((Schedule) object);
         }
+
+        ScheduleData.updateScheduleArrayRepeat(arrayList);
 
         //释放
         os.close();

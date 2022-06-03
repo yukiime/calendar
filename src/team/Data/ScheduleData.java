@@ -54,7 +54,7 @@ public class ScheduleData {
     // scheduleArrayNotRepeat更新为从本地文件更新的arrayList
     public static void updateScheduleArrayNotRepeat(ArrayList<Schedule> arrayList) {
         scheduleArrayNotRepeat.clear();
-        scheduleArrayNotRepeat = arrayList;
+        scheduleArrayNotRepeat.addAll(arrayList);
     }
 
     // 无重复日程队列的调用函数
@@ -84,7 +84,7 @@ public class ScheduleData {
     // scheduleArrayRepeat更新为从本地文件更新的arrayList
     public static void updateScheduleArrayRepeat(ArrayList<Schedule> arrayList) {
         scheduleArrayRepeat.clear();
-        scheduleArrayRepeat = arrayList;
+        scheduleArrayRepeat.addAll(arrayList);
     }
 
     // 重复日程队列的调用函数

@@ -2,34 +2,24 @@ package team.Data;
 
 import team.Item.ItemSchedule.CommemorationDay;
 import team.Item.ItemSchedule.Schedule;
+import team.Item.ItemsWork.CreateSth;
+import team.Projectexception.ArrayException;
 
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ItemsWriter {
-
-    public static void test1()
-    {
-        FestivalData.FestivalDataBase();
-        writerAllItems();
-
-        System.out.println(FestivalData.commemorationDays_festival.size());
-
-        ItemsRead.readAllItems();
-
-        for(int i = 0 ;i< FestivalData.commemorationDays_festival.size() ;i ++)
-        {
-            System.out.println(FestivalData.commemorationDays_festival.get(i).getContent());
-        }
-    }
-
     /**
      * 将所有需要存储的数据分类写入文件中
+     * @return null
      */
-    public static void writerAllItems() {
+    public static ActionListener writerAllItems() {
         try {
             // 节日/纪念日
             //writerCommemorationDays_festival();
+
             // 非重复类型的日程
             writerScheduleNotRepeat();
             // 重复类型的日程
@@ -37,6 +27,7 @@ public class ItemsWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
