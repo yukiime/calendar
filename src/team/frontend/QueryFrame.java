@@ -16,6 +16,7 @@ import java.awt.event.*;
 class HandleParseLunar2Solar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String tmp = Lunar2SolarPanel.lunarInput.getContent();
+        QueryFrame.restoreDistance();
         try {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month;
@@ -29,11 +30,11 @@ class HandleParseLunar2Solar implements ActionListener {
             int res[] = LS.lunarToSolar(year, month, lunarDate, isLeapMonth);
             QueryFrame.setDistance(DateCalculator.distanceOfToday(res[0], res[1], res[2]));
             QueryFrame.rp.setResult("阳历 " + res[0] + "年" + res[1] + "月" + res[2] + "日 "
-                    + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(res[0], res[1], res[2]) - 1]);
+                    + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(res[0], res[1], res[2])]);
 
         } catch (Exception err) {
-            Alert.warn(err.getMessage());
-            QueryFrame.rp.setResult("转换失败，格式错误");
+            Alert.warn("输入的日期不符合规范");
+            QueryFrame.rp.setResult("转换失败");
         }
     }
 }
@@ -41,11 +42,12 @@ class HandleParseLunar2Solar implements ActionListener {
 class HandleParseSolar2Lunar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String tmp = Solar2LunarPanel.solarInput.getContent();
+        QueryFrame.restoreDistance();
         try {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month = Integer.parseInt(tmp.split("年")[1].split("月")[0]);
             int solarDate = Integer.parseInt(tmp.split("年")[1].split("月")[1].split("日")[0]);
-            if (!DateCalculator.checkQueryVaild(year, month, solarDate))
+            if (!DateCalculator.checkQueryVaild(year, month, solarDate, 1))
                 throw new InvaildQueryException();
             int[] res = LS.solarToLunar(year, month, solarDate);
             QueryFrame.setDistance(DateCalculator.distanceOfToday(year, month, solarDate));
@@ -57,8 +59,10 @@ class HandleParseSolar2Lunar implements ActionListener {
                                     + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(year, month, solarDate)]);
         } catch (InvaildQueryException err) {
             Alert.warn(err.getMessage());
+            QueryFrame.rp.setResult("转换失败");
         } catch (ArrayIndexOutOfBoundsException err) {
             Alert.warn("输入格式错误");
+            QueryFrame.rp.setResult("转换失败");
         } catch (Exception err) {
             Alert.warn(err.getMessage());
             QueryFrame.rp.setResult("转换失败");
@@ -99,7 +103,7 @@ class ResultPane extends JPanel {
     }
 
     public void setResult(String res) {
-        result.setText(res);
+        result.setContent("text", res);
     }
 }
 
@@ -131,6 +135,10 @@ public class QueryFrame extends JFrame {
             distance.setContent("text", "距离这个日子还有 " + num + " 天");
         else
             distance.setContent("text", "就是今天!");
+    }
+
+    static void restoreDistance() {
+        distance.setContent("text", "");
     }
 
 }
