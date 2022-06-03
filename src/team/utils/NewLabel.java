@@ -1,11 +1,9 @@
 package team.utils;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class NewLabel extends JLabel {
     public NewLabel() {
@@ -28,8 +26,6 @@ public class NewLabel extends JLabel {
     }
 
     public void setStyle(String type) {
-
-        setHorizontalAlignment(SwingConstants.LEFT);
         String[] props = type.split(" ");
         switch (props[0]) {
             case "h1":

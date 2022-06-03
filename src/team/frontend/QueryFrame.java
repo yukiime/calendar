@@ -47,7 +47,7 @@ class HandleParseSolar2Lunar implements ActionListener {
             int year = Integer.parseInt(tmp.split("年")[0]);
             int month = Integer.parseInt(tmp.split("年")[1].split("月")[0]);
             int solarDate = Integer.parseInt(tmp.split("年")[1].split("月")[1].split("日")[0]);
-            if (!DateCalculator.checkQueryVaild(year, month, solarDate, 1))
+            if (!DateCalculator.checkQueryVaild(year, month, solarDate))
                 throw new InvaildQueryException();
             int[] res = LS.solarToLunar(year, month, solarDate);
             QueryFrame.setDistance(DateCalculator.distanceOfToday(year, month, solarDate));
