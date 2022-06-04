@@ -35,7 +35,7 @@ public class ScheduleData {
   // 开始
 
   // 创建无重复的日程的ArrayList
-  private static ArrayList<Schedule> scheduleArrayNotRepeat = new ArrayList<Schedule>();
+  private static ArrayList<Schedule> scheduleArrayNotRepeat = new ArrayList<>();
 
   // 用于获取无重复的日程的ArrayList
   public static ArrayList<Schedule> getScheduleArrayNotRepeat() {
@@ -65,7 +65,7 @@ public class ScheduleData {
   // 开始
 
   // 创建重复的日程的ArrayList
-  private static ArrayList<Schedule> scheduleArrayRepeat = new ArrayList<Schedule>();
+  private static ArrayList<Schedule> scheduleArrayRepeat = new ArrayList<>();
 
   // 用于获取无重复的日程的ArrayList
   public static ArrayList<Schedule> getScheduleArrayRepeat() {
