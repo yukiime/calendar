@@ -16,15 +16,8 @@ class DayBoxMS implements MouseListener {
 
     public void mousePressed(MouseEvent e) {
         DayBox obj = (DayBox) e.getSource();
-
         CalendarGrid.dayBoxGroup[Context.selectedNum].release(); // 释放上次的日期格子
         obj.select(); // 选中当前点击的格子
-        Context.selectedNum = obj.getIndex(); // 储存当前选中格子的索引
-        Context.year = obj.getYear();
-        Context.month = obj.getMonth();
-        Context.solarDate = obj.getSolarDateNum();
-
-        EntranceFrame.sd.renderSider(obj.getYear(), obj.getMonth(), obj.getSolarDateNum());
     }
 
     public void mouseReleased(java.awt.event.MouseEvent e) {
@@ -108,7 +101,12 @@ class DayBox extends JPanel {
     }
 
     public void select() {
+        Context.selectedNum = this.getIndex(); // 储存当前选中格子的索引
+        Context.year = this.getYear();
+        Context.month = this.getMonth();
+        Context.solarDate = this.getSolarDateNum();
         this.setBackground(Context.goldColors[4]);
+        EntranceFrame.sd.renderSider(Context.year, Context.month, Context.solarDate);
     }
 
     public void release() {

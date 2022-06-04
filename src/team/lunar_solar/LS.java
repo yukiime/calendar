@@ -222,7 +222,7 @@ public class LS {
         if (offset == 0) {
             // offset=0;
 
-            if ((iMonth - 1) == leapMonth) {
+            if ((iMonth - 1) == leapMonth && leapMonth != 0) {
                 isLeap = true;
                 iMonth--;
 

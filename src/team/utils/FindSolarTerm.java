@@ -2,7 +2,6 @@ package team.utils;
 
 import team.Item.ItemSchedule.SolarTerm;
 import team.Projectexception.DateRangeException;
-import team.Projectexception.EmptyContentException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,7 +88,7 @@ public class FindSolarTerm {
 
         int centuryIndex = -1;
         try {
-            if (year >= 1902 && year <= 2000) {// 20世纪
+            if (year >= 1902 - 1 && year <= 2000) {// 20世纪
                 centuryIndex = 0;
             } else if (year >= 2001 && year <= 2100) {// 21世纪
                 centuryIndex = 1;

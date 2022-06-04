@@ -223,14 +223,14 @@ public class ModifyFrame<T> extends JFrame {
                 @SuppressWarnings("unchecked")
                 JComboBox<String> cb = (JComboBox<String>) e.getSource();
                 ModifyFrame<?> frame = (ModifyFrame<?>) cb.getRootPane().getParent();
-                if (cb.getSelectedIndex() == 4) {
+                if (cb.getSelectedIndex() == 4) { // 纪念日
                     frame.checkRepeat.setSelected(true);
                     frame.checkRepeat.setEnabled(false);
                     frame.selectRepeatTypeBox.setSelectedIndex(0);
                     frame.selectRepeatTypeBox.setEnabled(false);
                 } else {
                     frame.checkRepeat.setEnabled(true);
-                    frame.selectRepeatTypeBox.setEnabled(true);
+                    frame.checkRepeat.setSelected(false);
                 }
             }
         });
@@ -267,6 +267,7 @@ public class ModifyFrame<T> extends JFrame {
             this.checkRepeat.setSelected(true);
             this.selectRepeatTypeBox.setSelectedIndex(ref.getRepeatCode() - 1);
         } else {
+            this.checkRepeat.setSelected(false);
             this.selectRepeatTypeBox.setEnabled(false);
             this.inputDuration.setAccess(false);
         }

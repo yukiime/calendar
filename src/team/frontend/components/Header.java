@@ -60,8 +60,7 @@ public class Header extends JPanel {
             year = month == 12 ? year + 1 : year;
             month = month == 12 ? 1 : month + 1;
             Context.toggleFullDateInContext(year, month, 1);
-            yearBox.setSelectedIndex(year - 1902);
-            monthBox.setSelectedIndex(month - 1);
+            this.setSelectedDate(year, month);
         } catch (DateRangeException err) {
             Alert.warn(err.getMessage());
         }
@@ -76,10 +75,15 @@ public class Header extends JPanel {
             year = month == 1 ? year - 1 : year;
             month = month == 1 ? 12 : month - 1;
             Context.toggleFullDateInContext(year, month, 1);
-            yearBox.setSelectedIndex(year - 1902);
-            monthBox.setSelectedIndex(month - 1);
+            this.setSelectedDate(year, month);
         } catch (DateRangeException err) {
             Alert.warn(err.getMessage());
         }
     }
+
+    public void setSelectedDate(int year, int month) {
+        this.yearBox.setSelectedIndex(year - 1902);
+        this.monthBox.setSelectedIndex(month - 1);
+    }
+
 }
