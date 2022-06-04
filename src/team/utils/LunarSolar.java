@@ -1,9 +1,9 @@
-package team.lunar_solar;
+package team.utils;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class LS {
+public class LunarSolar {
     /**
      * 支持转换的最小农历年份
      */

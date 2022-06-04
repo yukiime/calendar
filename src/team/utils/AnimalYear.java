@@ -1,6 +1,6 @@
-package team.lunar_solar;
+package team.utils;
 
-public class Animal_year {
+public class AnimalYear {
     /**
      * 支持转换的最小农历年份
      */
@@ -21,7 +21,7 @@ public class Animal_year {
 
     static public String Solar_Animal(int year, int month, int monthDay) {
 
-        int[] lunardate = LS.solarToLunar(year, month, monthDay);
+        int[] lunardate = LunarSolar.solarToLunar(year, month, monthDay);
         return Lunar_Animal(lunardate[0], lunardate[1], lunardate[2]);
     }
 
