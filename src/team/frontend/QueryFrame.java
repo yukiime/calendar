@@ -53,7 +53,7 @@ class HandleParseSolar2Lunar implements ActionListener {
             QueryFrame.setDistance(DateCalculator.distanceOfToday(year, month, solarDate));
             QueryFrame.rp
                     .setResult(
-                            "农历 " + res[0] + "年" + (res[3] == 1 ? "闰 " : " ")
+                            "农历 " + res[0] + "年" + (res[3] == 1 ? " 闰" : " ")
                                     + Context.MonthChar.values()[res[1] - 1].toString()
                                     + Context.LunarChar.values()[res[2] - 1] + " "
                                     + Context.DayOfWeekChar.values()[DateCalculator.dayOfWeek(year, month, solarDate)]);

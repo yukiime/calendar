@@ -47,7 +47,6 @@ class DayBox extends JPanel {
     private int month; // 1 月 month = 1
     private int solarDateNum; // 阳历 19 号 solarDate = 19
     private String lunarDateText; // 阴历日文本
-    private String lunarMonthText; // 阴历月文本
     private Color defaultBackgroundColor;
 
     DayBox(int solarDateNum, int month, int year, int index) {
@@ -104,10 +103,6 @@ class DayBox extends JPanel {
         return this.lunarDateText;
     }
 
-    public String getLunarMonthText() {
-        return this.lunarMonthText;
-    }
-
     public int getIndex() {
         return this.index;
     }
@@ -130,15 +125,14 @@ class DayBox extends JPanel {
     public void setDate(int solarDateNum) {
 
         // 阴历日
-        int lunarDateNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[2];
+        int[] res = LS.solarToLunar(year, month, solarDateNum);
+        int lunarDateNum = res[2];
         // 阴历月
-        int lunarMonthNum = LS.solarToLunar(this.year, this.month, this.solarDateNum)[1];
-
-        this.lunarMonthText = Context.MonthChar.values()[lunarMonthNum - 1].toString();
+        int lunarMonthNum = res[1];
 
         // 阴历每月第一天不渲染 “初一”，渲染 “ * 月”
         if (lunarDateNum == 1)
-            this.lunarDateText = Context.MonthChar.values()[lunarMonthNum - 1].toString();
+            this.lunarDateText = (res[3] == 1 ? "闰" : "") + Context.MonthChar.values()[lunarMonthNum - 1].toString();
         else
             this.lunarDateText = Context.LunarChar.values()[lunarDateNum - 1].toString();
     }

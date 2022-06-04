@@ -219,6 +219,16 @@ public class LS {
             isLeap = true;
         }
 
+        if (offset == 0) {
+            // offset=0;
+
+            if ((iMonth - 1) == leapMonth) {
+                isLeap = true;
+                iMonth--;
+
+            }
+
+        }
         // 当前月超过闰月，要校正/////
         if (leapMonth != 0 && iMonth > leapMonth + 1) {
             --iMonth;
@@ -233,6 +243,7 @@ public class LS {
             --iMonth;
 
         }
+
         if (iMonth != leapMonth) {/////////// 对是否是闰月的二次判断
             isLeap = false;
         }

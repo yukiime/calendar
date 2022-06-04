@@ -147,6 +147,7 @@ public class CreateScheduleFrame extends JFrame {
         this.selectRepeatTypeBox.addItem("每星期重复");
         this.selectRepeatTypeBox.addItem("自定义重复");
         this.panSelectRepeatType.setLayout(new FlowLayout(FlowLayout.LEFT));
+        this.selectRepeatTypeBox.setEnabled(false);
         this.panSelectRepeatType.add(selectRepeatTypeText);
         this.panSelectRepeatType.add(selectRepeatTypeBox);
         this.add(panSelectRepeatType);

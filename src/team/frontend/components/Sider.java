@@ -74,7 +74,7 @@ public class Sider extends JPanel {
     public void renderSider(int year, int month, int solarDate) {
         int[] tmp = LS.solarToLunar(year, month, solarDate);
         String lunarDateText = Context.LunarChar.values()[tmp[2] - 1].toString();
-        String lunarMonthText = Context.MonthChar.values()[tmp[1] - 1].toString();
+        String lunarMonthText = (tmp[3] == 1 ? "闰" : "") + Context.MonthChar.values()[tmp[1] - 1].toString();
 
         solarDateLabel.setContent("h1", String.valueOf(solarDate));
         year_monthLabel.setContent("h4", String.valueOf(year) + "年" + String.valueOf(month) + "月");
