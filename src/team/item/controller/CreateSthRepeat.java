@@ -232,10 +232,7 @@ public class CreateSthRepeat {
         mid = (start + end) / 2; // 取中间值
 
         // 查询下标的数据比传入数据小,下一个搜索区段的首下标更改为该下标+1
-        if (ScheduleData.getIndexRepeatSchedule(mid).getCreateTime() <= createTime) { /**
-                                                                                       * 05.24
-                                                                                       * 这样做不会出bug,还能改更好，但是就这样也不会出bug,就先这样以后再改
-                                                                                       */
+        if (ScheduleData.getIndexRepeatSchedule(mid).getCreateTime() <= createTime) {
           start = mid + 1;
         }
         // 查询下标的数据比传入数据大,下一个搜索区段的尾下标更改为该下标-1

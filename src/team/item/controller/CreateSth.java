@@ -72,14 +72,6 @@ public class CreateSth {
             while (start <= end) {
 
                 mid = (start + end) / 2; // 取中间值
-
-                /**
-                 * 05.24
-                 * 要变更if-else顺序 不然会出bug
-                 * 另一个地方也要改
-                 * 如果start正好是最后一个
-                 * 其实没关系
-                 */
                 // 查询下标的数据比传入数据小,下一个搜索区段的首下标更改为该下标+1
                 if (ScheduleData.getIndexSchedule(mid).getCreateTime() <= createTime) {
                     start = mid + 1;
