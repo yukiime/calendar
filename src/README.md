@@ -338,14 +338,14 @@ public static final int[] lunarSolar(){
         抛出不合法参数异常并提示用户正确的输入范围;
     }
     dayoffset <- 农历year年正月初一对应的公历日并 -1;
-    //由于日期跨度不能将首尾两天都计入，所以要-1
-    //说明一月的天数尚未被计入dayoffset
+    // 由于日期跨度不能将首尾两天都计入，所以要-1
+    // 说明一月的天数尚未被计入dayoffset
     if (农历正月初一对应的公历日期是在2月) {
         //将1月的31天计入dayoffset
         dayOffset <- dayOffset + 1 ;
     }
 
-    //遍历，取出每个月的天数，直到要计算的月的前一个月（不包括用户输入的那个月
+    // 遍历，取出每个月的天数，直到要计算的月的前一个月（不包括用户输入的那个月
     for (i = 1 to month - 1 by 1)
         if(农历是小月)
             dayOffset <- dayOffset + 29;
@@ -356,7 +356,8 @@ public static final int[] lunarSolar(){
     dayOffset <- dayOffset + monthDay;
     leapMonth <- 该年闰月月份，若无闰月，则为0;
     if (这一年有闰月) {
-        //若当年有闰月，那么前面遍历计数是会少算最后一个整月的天数，所以此处用来加上最后一个整月
+        // 若当年有闰月，那么前面遍历计数是会少算最后一个整月的天数
+        // 所以此处用来加上最后一个整月
         if(month是闰月或是闰月的后一个月) {
             if(month是小月)
                 dayOffset <- dayOffset+ 29 ;
@@ -366,7 +367,7 @@ public static final int[] lunarSolar(){
         }
     }
 
-    //说明阴历year年month月monthDay距离阳历year年的阳历1月1日已经有了超过一年的时间（这种情况出现在农历年末，阳历年初）
+    // 阴历距离阳历1月1日已经有了超过一年的时间（这种情况出现在农历年末，阳历年初）
     if(dayOffset超过366或者在阳历非闰年超过365){
         //此时对应的阳历年份比阴历大1
         year -> year + 1 ;
@@ -446,43 +447,44 @@ public static final int[] solarToLunar(year, month, monthDay)
     // JAVA中月份从0开始，即0表示1月
 
     offset <- 用户输入的阳历日期距离阳历1900年1月31日有多少天;
-    //86400000L是一天的毫秒数，除以它后即使两个时间之间隔了多少天
+    // 86400000L是一天的毫秒数，除以它后即使两个时间之间隔了多少天
 
-    iYear, dayOfYear <- 0  ;
+    iYear, dayOfYear <- 0;
     // iYear最终结果是农历的年份
 
     for (iYear MIN_YEAR to MAX_YEAR 并且 offset > 0 by 1) {
-        daysOfYear <- iYear年的天数 ;
-        offset <- offset - daysOfYear ;
-        //遍历，每历过一年，offset就减去该农历年的天数
+        daysOfYear <- iYear年的天数;
+        offset <- offset - daysOfYear;
+        // 遍历，每历过一年，offset就减去该农历年的天数
     }
 
     if(offset < 0) {
-        //表示遍历时已经历到过所在那年，且for循环中会将年份多加1
+        // 表示遍历时已经历到过所在那年，且for循环中会将年份多加1
         offset <- daysOfyear;
         iYear <- iYear -1;
-        //此时得到的就是所在农历年份
+        // 此时得到的就是所在农历年份
     }
 
     // 所在阴历年份
     lunarDate[0] <- iYear;
-    //闰月范围1—12，若阴历iYear年无闰月，则为0
+    // 闰月范围1—12，若阴历iYear年无闰月，则为0
     leapMonth <- 阴历iYear年的闰月月份;
-    //最终用来记录对应的阴历月是否是闰月
+    // 最终用来记录对应的阴历月是否是闰月
     isLeap <- false;
-    //最终用来记录对应阴历月
+    // 最终用来记录对应阴历月
     iMonth <- 0;
-    //最终用来记录对应的阴历日
+    // 最终用来记录对应的阴历日
     daysOfMonth <- 0;
 
     for (iMonth 1 to 13 并且 offset > 0 by 1) {
         // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
         daysOfMonth <-  iYear年的iMonth 月的天数;
-        offset <- offset - daysOfMonth  ;
+        offset <- offset - daysOfMonth;
     }
 
     if (iMonth - 2 为闰月) {
-        //对是否是闰月的初步判断,符合条件的iMonth可能为闰月，也可能为闰月后面的月份
+        // 对是否是闰月的初步判断,符合条件的iMonth可能为闰月
+        // 也可能为闰月后面的月份
         isLeap <- true;
     }
     if (当年有闰月并且iMonth月超过(闰月月份+1)) {
@@ -608,7 +610,10 @@ public class FindSolarTerm {
     */
     y <- year % 100; // 步骤1:取年分的后两位数
     if (year年为闰年) {
-        if (ordinal 等于 SolarTermsEnum.XIAOHAN.ordinal() 或者ordinal 等于 SolarTermsEnum.DAHAN.ordinal() 或者 ordinal 等于 SolarTermsEnum.LICHUN.ordinal() 或者 ordinal 等于 SolarTermsEnum.YUSHUI.ordinal()) {
+        if (ordinal 等于 SolarTermsEnum.XIAOHAN.ordinal()
+            或者ordinal 等于 SolarTermsEnum.DAHAN.ordinal()
+            或者 ordinal 等于 SolarTermsEnum.LICHUN.ordinal()
+            或者 ordinal 等于 SolarTermsEnum.YUSHUI.ordinal()) {
             y <- y - 1;
             /**
              * 注意：凡闰年3月1日前闰年数要减一，即：L=[(Y-1)/4]
@@ -626,7 +631,8 @@ public class FindSolarTerm {
 ```
 
 ```java
-// 特例,特殊的年分的节气偏移量,由于公式并不完善，所以算出的个别节气的第几天数并不准确，在此返回其偏移量
+// 特例,特殊的年分的节气偏移量,由于公式并不完善，
+所以算出的个别节气的第几天数并不准确，在此返回其偏移量
 public static int specialYearOffset(年份，节气名称){
     offset <- 0 ;
     offset <- offset + DECREASE_OFFSETMAP偏移量;
